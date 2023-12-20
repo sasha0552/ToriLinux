@@ -1,0 +1,10 @@
+{
+  "precision": "Full",
+  "cuda_dtype": "FP32",
+  "no_half": true,
+  "no_half_vae": true,
+
+  "cross_attention_options": [
+    "SDP disable memory attention"
+  ]
+}

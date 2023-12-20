@@ -1,0 +1,69 @@
+--- a/launch.py
++++ b/launch.py
+@@ -7,6 +7,7 @@ import shlex
+ import subprocess
+ from functools import lru_cache
+ import installer
++from modules.pstates import enter_pstate_low
+ 
+ 
+ commandline_args = os.environ.get('COMMANDLINE_ARGS', "")
+@@ -165,6 +166,7 @@ def start_server(immediate=True, server=None):
+ 
+ 
+ if __name__ == "__main__":
++    enter_pstate_low()
+     installer.ensure_base_requirements()
+     init_args() # setup argparser and default folders
+     installer.args = args
+diff --git a/modules/pstates.py b/modules/pstates.py
+new file mode 100644
+index 00000000..44865a87
+--- /dev/null
++++ b/modules/pstates.py
+@@ -0,0 +1,17 @@
++import os
++import subprocess
++
++def _set_pstate(pstate):
++  visible_devices = os.getenv("CUDA_VISIBLE_DEVICES")
++
++  if visible_devices:
++    for device in visible_devices.split(","):
++      subprocess.check_call([ "nvidia-pstate", "-i", device, "-ps", pstate ], stdout=subprocess.DEVNULL)
++  else:
++    subprocess.check_call([ "nvidia-pstate", "-ps", pstate ], stdout=subprocess.DEVNULL)
++
++def enter_pstate_low():
++  _set_pstate("8")
++
++def enter_pstate_high():
++  _set_pstate("16")
+--- a/modules/shared_state.py
++++ b/modules/shared_state.py
+@@ -3,6 +3,7 @@ import sys
+ import time
+ import datetime
+ from modules.errors import log
++from modules.pstates import enter_pstate_high, enter_pstate_low
+ 
+ 
+ class State:
+@@ -77,6 +78,8 @@ class State:
+         self.time_start = time.time()
+         if self.debug_output:
+             log.debug(f'State begin: {self.job}')
++        if self.job != "load":
++            enter_pstate_high()
+         modules.devices.torch_gc()
+ 
+     def end(self):
+@@ -86,6 +89,8 @@ class State:
+             self.time_start = time.time()
+         if self.debug_output:
+             log.debug(f'State end: {self.job} time={time.time() - self.time_start:.2f}')
++        if self.job != "load":
++            enter_pstate_low()
+         self.job = ""
+         self.job_count = 0
+         self.job_no = 0

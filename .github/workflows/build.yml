@@ -1,0 +1,44 @@
+name: Build ISO
+
+on:
+  push:
+    branches: main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Cleanup
+        uses: rokibhasansagar/slimhub_actions@main
+        with:
+          retain: "docker_imgcache,docker_buildkit,docker_imgcache"
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build image
+        uses: addnab/docker-run-action@v3
+        with:
+          image: archlinux:latest
+          options: --privileged --volume ${{ github.workspace }}:/workspace
+          run: |
+            # Refresh package databases
+            pacman --sync --noconfirm --refresh
+
+            # Upgrade system
+            pacman --sync --noconfirm --sysupgrade
+
+            # Install required packages
+            pacman --sync --noconfirm --needed archiso
+
+            # Build image
+            mkarchiso -v -w /workspace/work -o /workspace/out /workspace
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: archiso-output
+          path: out/

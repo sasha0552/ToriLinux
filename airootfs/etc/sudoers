@@ -1,0 +1,3 @@
+Defaults lecture="never"
+
+%wheel ALL=(ALL:ALL) ALL

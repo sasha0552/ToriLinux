@@ -1,0 +1,19 @@
+[submodule "airootfs/home/tori/automatic"]
+  path = airootfs/home/tori/automatic
+  url = https://github.com/vladmandic/automatic.git
+
+[submodule "airootfs/home/tori/koboldcpp"]
+  path = airootfs/home/tori/koboldcpp
+  url = https://github.com/LostRuins/koboldcpp.git
+
+[submodule "airootfs/home/tori/llama.cpp"]
+  path = airootfs/home/tori/llama.cpp
+  url = https://github.com/ggerganov/llama.cpp.git
+
+[submodule "airootfs/home/tori/SillyTavern-Extras"]
+  path = airootfs/home/tori/SillyTavern-Extras
+  url = https://github.com/SillyTavern/SillyTavern-Extras.git
+
+[submodule "airootfs/home/tori/text-generation-webui"]
+  path = airootfs/home/tori/text-generation-webui
+  url = https://github.com/oobabooga/text-generation-webui.git
