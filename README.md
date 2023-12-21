@@ -1,6 +1,6 @@
 # ToriLinux - Linux LiveCD for offline AI inference
 
-LiveCD distribution based on ArchLinux and currently includes the following projects preinstalled, along with their dependencies:
+LiveCD distribution based on [ArchLinux](https://archlinux.org/) and currently includes the following projects preinstalled, along with their dependencies:
 * [automatic](https://github.com/vladmandic/automatic)
 * [koboldcpp](https://github.com/LostRuins/koboldcpp)
 * [llama.cpp](https://github.com/ggerganov/llama.cpp)
