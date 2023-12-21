@@ -7,9 +7,6 @@ mv /usr/lib/os-release.new /usr/lib/os-release
 # set user password
 echo "tori:tori" | chpasswd
 
-# disable alternate screen capability
-echo "termcapinfo * ti=:te=" >> /etc/skel/.screenrc
-
 # enter user directory
 cd "/home/tori"
 
