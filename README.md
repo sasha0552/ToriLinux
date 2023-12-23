@@ -14,7 +14,6 @@ If you would like to see another AI-related project included in ToriLinux, pleas
 * Easy setup: just boot the ISO, and you will have a working setup for inferencing LLMs/SD/etc.
 * Fully offline inference.
 * Includes performance state switcher, which reduces GPU temperatures when inference is not running.
-* KoboldCPP is [patched](https://github.com/ggerganov/llama.cpp/pull/4538) to ensure the best speed for Mixtral models.
 
 ## Usage
 
