@@ -21,7 +21,7 @@ If you would like to see another AI-related project included in ToriLinux, pleas
 
 To use ToriLinux:
 1. Install [Ventoy](https://ventoy.net/en/doc_start.html) on a USB drive.
-2. Download the latest ISO from [workflows](https://github.com/sasha0552/ToriLinux/actions) and copy it to the USB drive.
+2. Download the latest ISO from [workflows](https://github.com/sasha0552/ToriLinux/actions?query=branch%3Amain) and copy it to the USB drive.
 3. Boot from the USB drive (select it as the boot device in BIOS/UEFI).
 4. Log in with the username `tori` and password `tori`. You can also use [SSH](https://en.wikipedia.org/wiki/Secure_Shell).
 

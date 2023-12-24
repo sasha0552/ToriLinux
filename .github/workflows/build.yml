@@ -1,8 +1,7 @@
 name: Build ISO
 
 on:
-  push:
-    branches: main
+  - push
 
 jobs:
   build:
