@@ -16,7 +16,4 @@ pushd "automatic"
 
   # drop pstate in idle
   patch -p1 < "$CUSTOMIZE_AIROOTFS/patches/0000-automatic-drop-pstate-in-idle.patch"
-
-  # copy config
-  cp "$CUSTOMIZE_AIROOTFS/files/automatic-config.json" "config.json"
 popd
