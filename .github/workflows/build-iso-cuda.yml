@@ -2,6 +2,7 @@ name: Build ISO (CUDA)
 
 on:
   - push
+  - pull_request
 
 jobs:
   build:
