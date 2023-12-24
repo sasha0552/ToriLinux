@@ -1,4 +1,4 @@
-name: Build ISO
+name: Build ISO (CUDA)
 
 on:
   - push
@@ -34,7 +34,7 @@ jobs:
             pacman --sync --noconfirm --needed archiso
 
             # Build image
-            mkarchiso -v -w /workspace/work -o /workspace/out /workspace
+            mkarchiso -v -m iso -w /workspace/work -o /workspace/out /workspace
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
