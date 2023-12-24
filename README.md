@@ -5,7 +5,6 @@ LiveCD distribution based on [ArchLinux](https://archlinux.org/) and currently i
 * [koboldcpp](https://github.com/LostRuins/koboldcpp)
 * [llama.cpp](https://github.com/ggerganov/llama.cpp)
 * [SillyTavern-Extras](https://github.com/SillyTavern/SillyTavern-Extras)
-* [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)
 * [text-generation-webui](https://github.com/oobabooga/text-generation-webui)
 * [vllm](https://github.com/vllm-project/vllm)
 
