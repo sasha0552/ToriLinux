@@ -17,3 +17,7 @@
 [submodule "airootfs/home/tori/text-generation-webui"]
   path = airootfs/home/tori/text-generation-webui
   url = https://github.com/oobabooga/text-generation-webui.git
+
+[submodule "airootfs/home/tori/vllm"]
+  path = airootfs/home/tori/vllm
+  url = https://github.com/vllm-project/vllm.git

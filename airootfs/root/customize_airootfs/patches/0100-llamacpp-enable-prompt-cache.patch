@@ -1,0 +1,29 @@
+--- a/examples/server/server.cpp
++++ b/examples/server/server.cpp
+@@ -191,7 +191,7 @@ enum slot_command
+ struct slot_params
+ {
+     bool stream       = true;
+-    bool cache_prompt = false; // remember the prompt to avoid reprocessing all prompt
++    bool cache_prompt = true; // remember the prompt to avoid reprocessing all prompt
+ 
+     uint32_t seed      = -1; // RNG seed
+     int32_t  n_keep    =  0; // number of tokens to keep from initial prompt
+@@ -712,7 +712,7 @@ struct llama_server_context
+         }
+ 
+         slot->params.stream           = json_value(data, "stream",            false);
+-        slot->params.cache_prompt     = json_value(data, "cache_prompt",      false);
++        slot->params.cache_prompt     = json_value(data, "cache_prompt",      true);
+         slot->params.n_predict        = json_value(data, "n_predict",         default_params.n_predict);
+         slot->sparams.top_k           = json_value(data, "top_k",             default_sparams.top_k);
+         slot->sparams.top_p           = json_value(data, "top_p",             default_sparams.top_p);
+@@ -2439,7 +2439,7 @@ json oaicompat_completion_params_parse(
+     // Map OpenAI parameters to llama.cpp parameters
+     llama_params["model"]             = json_value(body, "model", std::string("uknown"));
+     llama_params["prompt"]            = format_chatml(body["messages"]); // OpenAI 'messages' to llama.cpp 'prompt'
+-    llama_params["cache_prompt"]      = json_value(body, "cache_prompt", false);
++    llama_params["cache_prompt"]      = json_value(body, "cache_prompt", true);
+     llama_params["temperature"]       = json_value(body, "temperature", 0.8);
+     llama_params["top_k"]             = json_value(body, "top_k", 40);
+     llama_params["top_p"]             = json_value(body, "top_p", 0.95);
