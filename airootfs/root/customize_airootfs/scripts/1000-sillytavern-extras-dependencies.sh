@@ -15,5 +15,5 @@ pushd "SillyTavern-Extras"
     pip3 install -r requirements.txt
     pip3 install -r requirements-coqui.txt
     pip3 install -r requirements-rvc.txt
-  source venv/bin/deactivate
+  deactivate
 popd

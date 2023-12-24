@@ -30,7 +30,7 @@ pushd "vllm"
 
     # build native extension
     python3 setup.py build_ext --inplace
-  source venv/bin/deactivate
+  deactivate
 
   # remove venv
   rm -fr venv
@@ -42,5 +42,5 @@ pushd "vllm"
   source venv/bin/activate
     # install dependencies
     pip3 install -r requirements.txt
-  source venv/bin/deactivate
+  deactivate
 popd

@@ -13,5 +13,5 @@ pushd "automatic"
   source venv/bin/activate
     # install dependencies
     python3 launch.py --test
-  source venv/bin/deactivate
+  deactivate
 popd

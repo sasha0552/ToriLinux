@@ -13,5 +13,5 @@ pushd "stable-diffusion-webui"
   source venv/bin/activate
     # install dependencies
     pip3 install -r requirements.txt
-  source venv/bin/deactivate
+  deactivate
 popd
