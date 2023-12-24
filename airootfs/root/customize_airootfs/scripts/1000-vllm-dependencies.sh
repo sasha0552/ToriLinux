@@ -3,12 +3,6 @@ set -eu
 
 # vllm dependencies
 pushd "vllm"
-  # create venv
-  python3 -m venv venv
-
-  # activate venv
-  source venv/bin/activate
-
   # disable package caching
   export PIP_NO_CACHE_DIR=0
 
@@ -25,6 +19,28 @@ pushd "vllm"
   export CC=gcc-12
   export CXX=g++-12
 
-  # install dependencies
-  pip3 install -e .
+  # create venv
+  python3 -m venv venv
+
+  # activate venv
+  source venv/bin/activate
+    # install dependencies
+    pip3 install -r requirements.txt
+    pip3 install -r requirements-build.txt
+
+    # build native extension
+    python3 setup.py build_ext --inplace
+  source venv/bin/deactivate
+
+  # remove venv
+  rm -fr venv
+
+  # create venv
+  python3 -m venv venv
+
+  # activate venv
+  source venv/bin/activate
+    # install dependencies
+    pip3 install -r requirements.txt
+  source venv/bin/deactivate
 popd
