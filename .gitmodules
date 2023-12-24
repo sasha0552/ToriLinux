@@ -14,6 +14,10 @@
   path = airootfs/home/tori/SillyTavern-Extras
   url = https://github.com/SillyTavern/SillyTavern-Extras.git
 
+[submodule "airootfs/home/tori/stable-diffusion-webui"]
+  path = airootfs/home/tori/stable-diffusion-webui
+  url = https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+
 [submodule "airootfs/home/tori/text-generation-webui"]
   path = airootfs/home/tori/text-generation-webui
   url = https://github.com/oobabooga/text-generation-webui.git
