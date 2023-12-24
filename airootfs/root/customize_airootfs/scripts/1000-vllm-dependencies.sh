@@ -21,6 +21,10 @@ pushd "vllm"
   # cuda home directory
   export CUDA_HOME=/opt/cuda
 
+  # use gcc 12
+  export CC=gcc-12
+  export CXX=g++-12
+
   # install dependencies
   pip3 install -e .
 popd
