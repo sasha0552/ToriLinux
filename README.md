@@ -13,7 +13,7 @@ If you would like to see another AI-related project included in ToriLinux, pleas
 
 ## Features
 
-* Easy setup: just boot the ISO, and you will have a working setup for inferencing LLMs/SD/etc.
+* Easy setup: just boot the ISO, and you will have a working setup for training and/or inferencing Large Language Models/Stable Diffusion/etc.
 * Fully offline training and/or inference.
 * Includes performance state switcher, which reduces GPU temperatures when inference is not running (only automatic & koboldcpp for now).
 
