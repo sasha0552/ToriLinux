@@ -25,6 +25,9 @@ jobs:
           image: archlinux:latest
           options: --privileged --volume ${{ github.workspace }}:/workspace
           run: |
+            # Exit on error
+            set -eu
+
             # Refresh package databases
             pacman --sync --noconfirm --refresh
 
@@ -32,7 +35,7 @@ jobs:
             pacman --sync --noconfirm --sysupgrade
 
             # Install required packages
-            pacman --sync --noconfirm --needed archiso
+            pacman --sync --noconfirm --needed archiso patch
 
             # Apply patch to archiso
             patch << 'EOF'
