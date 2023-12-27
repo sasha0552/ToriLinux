@@ -28,6 +28,7 @@ nvtop
 openssh
 progress
 pv
+python-packaging
 python-pip
 qemu-guest-agent
 reptyr

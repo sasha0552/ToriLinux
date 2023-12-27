@@ -12,7 +12,6 @@ pushd "axolotl"
   # activate venv
   source venv/bin/activate
     # install dependencies
-    pip3 install packaging
     pip3 install -e ".[flash-attn,deepspeed]"
   deactivate
 popd
