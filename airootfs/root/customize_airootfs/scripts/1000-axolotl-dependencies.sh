@@ -12,6 +12,12 @@ pushd "axolotl"
   # activate venv
   source venv/bin/activate
     # install dependencies
+    pip3 install packaging wheel
+
+    # install flash-attn without build isolation
+    cat requirements.txt | grep flash-attn | xargs pip install --no-build-isolation
+
+    # install axolotl
     pip3 install -e ".[flash-attn,deepspeed]"
   deactivate
 popd
