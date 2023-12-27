@@ -42,16 +42,16 @@ jobs:
             --- /usr/bin/mkarchiso
             +++ /usr/bin/mkarchiso
             @@ -1227,6 +1227,10 @@
-                if [[ -v cert_list ]]; then
-                    _cms_sign_artifact "${airootfs_image_filename}"
-                fi
+                 if [[ -v cert_list ]]; then
+                     _cms_sign_artifact "${airootfs_image_filename}"
+                 fi
             +
             +    _msg_info 'Removing the pacstrap directory...'
             +    rm -rf -- "${pacstrap_dir:?}/"
             +    _msg_info 'Done!'
-            }
-            
-            # export build artifacts for netboot
+             }
+
+             # export build artifacts for netboot
             EOF
 
             # Build image
