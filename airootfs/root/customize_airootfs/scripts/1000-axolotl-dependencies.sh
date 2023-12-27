@@ -29,5 +29,8 @@ pushd "axolotl"
 
     # install axolotl
     pip3 install -e ".[flash-attn,deepspeed]"
+
+    # downgrade flash-attn (https://github.com/OpenAccess-AI-Collective/axolotl/issues/911#issuecomment-1868546443)
+    pip3 install flash-attn==2.3.2
   deactivate
 popd
