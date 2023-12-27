@@ -38,7 +38,7 @@ jobs:
             pacman --sync --noconfirm --needed archiso patch
 
             # Apply patch to archiso
-            patch << 'EOF'
+            patch -p0 << 'EOF'
             --- /usr/bin/mkarchiso
             +++ /usr/bin/mkarchiso
             @@ -1227,6 +1227,10 @@
@@ -50,7 +50,7 @@ jobs:
             +    rm -rf -- "${pacstrap_dir:?}/"
             +    _msg_info 'Done!'
             }
-
+            
             # export build artifacts for netboot
             EOF
 
