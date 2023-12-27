@@ -27,9 +27,6 @@ pushd "axolotl"
     # install dependencies
     pip3 install packaging torch wheel
 
-    # install flash-attn without build isolation
-    cat requirements.txt | grep flash-attn | xargs pip3 install --no-build-isolation
-
     # install axolotl
     pip3 install -e ".[flash-attn,deepspeed]"
   deactivate
