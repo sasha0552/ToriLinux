@@ -26,6 +26,7 @@ nvidia
 nvidia-utils
 nvtop
 openssh
+progress
 pv
 python-pip
 qemu-guest-agent
