@@ -2,6 +2,10 @@
   path = airootfs/home/tori/automatic
   url = https://github.com/vladmandic/automatic.git
 
+[submodule "airootfs/home/tori/axolotl"]
+  path = airootfs/home/tori/axolotl
+  url = https://github.com/OpenAccess-AI-Collective/axolotl.git
+
 [submodule "airootfs/home/tori/koboldcpp"]
   path = airootfs/home/tori/koboldcpp
   url = https://github.com/LostRuins/koboldcpp.git

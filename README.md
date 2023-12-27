@@ -1,7 +1,8 @@
-# ToriLinux - Linux LiveCD for offline AI inference
+# ToriLinux - Linux LiveCD for offline AI training and inference
 
 LiveCD distribution based on [ArchLinux](https://archlinux.org/) and currently includes the following projects preinstalled, along with their dependencies:
 * [automatic](https://github.com/vladmandic/automatic)
+* [axolotl](https://github.com/OpenAccess-AI-Collective/axolotl)
 * [koboldcpp](https://github.com/LostRuins/koboldcpp)
 * [llama.cpp](https://github.com/ggerganov/llama.cpp)
 * [SillyTavern-Extras](https://github.com/SillyTavern/SillyTavern-Extras)
@@ -13,8 +14,8 @@ If you would like to see another AI-related project included in ToriLinux, pleas
 ## Features
 
 * Easy setup: just boot the ISO, and you will have a working setup for inferencing LLMs/SD/etc.
-* Fully offline inference.
-* Includes performance state switcher, which reduces GPU temperatures when inference is not running.
+* Fully offline training and/or inference.
+* Includes performance state switcher, which reduces GPU temperatures when inference is not running (only automatic & koboldcpp for now).
 
 ## Usage
 
