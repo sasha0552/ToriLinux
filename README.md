@@ -15,17 +15,15 @@ If you would like to see another AI-related project included in ToriLinux, pleas
 
 * Easy setup: just boot the ISO, and you will have a working setup for training and/or inferencing Large Language Models/Stable Diffusion/etc.
 * Fully offline training and/or inference.
-* Includes performance state switcher, which reduces GPU temperatures when inference is not running (only automatic & koboldcpp for now).
+* Includes performance state switcher, which reduces GPU temperatures when inference is not running (only NVIDIA, only automatic & koboldcpp for now).
 
 ## Usage
 
 To use ToriLinux:
 1. Install [Ventoy](https://ventoy.net/en/doc_start.html) on a USB drive.
-2. Download the latest ISO from [workflows](https://github.com/sasha0552/ToriLinux/actions?query=branch%3Amain) and copy it to the USB drive.
+2. Download the latest ISO from workflows ([NVIDIA](https://github.com/sasha0552/ToriLinux/actions/workflows/build-iso-cuda.yml?query=branch%3Amain) / [AMD](https://github.com/sasha0552/ToriLinux/actions/workflows/build-iso-rocm.yml?query=branch%3Amain)) and copy it to the USB drive.
 3. Boot from the USB drive (select it as the boot device in BIOS/UEFI).
 4. Log in with the username `tori` and password `tori`. You can also use [SSH](https://en.wikipedia.org/wiki/Secure_Shell).
-
-Please note that ToriLinux currently works only with NVIDIA GPUs. If you would like a ROCm (AMD GPUs) version, please open an issue, and I'll make one.
 
 ## Misc
 
