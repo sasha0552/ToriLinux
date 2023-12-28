@@ -11,11 +11,6 @@ rm -fr /home/tori/.config/matplotlib
 rm -fr /home/tori/.keras
 
 {% if ROCm %}
-# remove nvidia-persistenced if rocm
-rm -f /etc/systemd/system/multi-user.target.wants/nvidia-persistenced.service
-{% endif %}
-
-{% if ROCm %}
 # remove axolotl if rocm
 rm -fr /home/tori/axolotl
 {% endif %}
