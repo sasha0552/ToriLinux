@@ -3,7 +3,6 @@ set -eu
 
 # SillyTavern-Extras dependencies
 pushd "SillyTavern-Extras"
-{% if CUDA %}
   # disable package caching
   export PIP_NO_CACHE_DIR=0
 
@@ -22,6 +21,7 @@ pushd "SillyTavern-Extras"
     pip3 install -r requirements-rocm.txt
 {% endif %}
 
+{% if CUDA %}
     # install remaining dependencies
     pip3 install -r requirements-coqui.txt
     pip3 install -r requirements-rvc.txt

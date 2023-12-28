@@ -17,6 +17,9 @@ pushd "text-generation-webui"
 {% endif %}
 
 {% if ROCm %}
+    # install pytorch
+    pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/rocm5.6
+
     # install dependencies (rocm)
     pip3 install -r requirements_amd.txt
 {% endif %}
