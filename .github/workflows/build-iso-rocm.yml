@@ -55,7 +55,9 @@ jobs:
             EOF
 
             # Configure to use ROCm
-            /workspace/.ci/configure.py rocm
+            pushd /workspace
+              python3 .ci/configure.py rocm
+            popd
 
             # Build image
             mkarchiso -v -m iso -w /workspace/work -o /workspace/out /workspace

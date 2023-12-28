@@ -55,7 +55,9 @@ jobs:
             EOF
 
             # Configure to use CUDA
-            /workspace/.ci/configure.py cuda
+            pushd /workspace
+              python3 .ci/configure.py cuda
+            popd
 
             # Build image
             mkarchiso -v -m iso -w /workspace/work -o /workspace/out /workspace
