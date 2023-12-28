@@ -25,6 +25,9 @@ jobs:
           image: archlinux:latest
           options: --privileged --volume ${{ github.workspace }}:/workspace
           run: |
+            # Exit on error
+            set -eu
+
             # Refresh package databases
             pacman --sync --noconfirm --refresh
 
@@ -32,7 +35,24 @@ jobs:
             pacman --sync --noconfirm --sysupgrade
 
             # Install required packages
-            pacman --sync --noconfirm --needed archiso
+            pacman --sync --noconfirm --needed archiso patch
+
+            # Apply patch to archiso
+            patch -p0 << 'EOF'
+            --- /usr/bin/mkarchiso
+            +++ /usr/bin/mkarchiso
+            @@ -1227,6 +1227,10 @@
+                 if [[ -v cert_list ]]; then
+                     _cms_sign_artifact "${airootfs_image_filename}"
+                 fi
+            +
+            +    _msg_info 'Removing the pacstrap directory...'
+            +    rm -rf -- "${pacstrap_dir:?}/"
+            +    _msg_info 'Done!'
+             }
+
+             # export build artifacts for netboot
+            EOF
 
             # Build image
             mkarchiso -v -m iso -w /workspace/work -o /workspace/out /workspace
