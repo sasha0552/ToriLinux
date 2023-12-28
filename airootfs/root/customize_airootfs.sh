@@ -7,6 +7,9 @@ mv /usr/lib/os-release.new /usr/lib/os-release
 # set user password
 echo "tori:tori" | chpasswd
 
+# remove any jinja2 files
+find -type f -name "*.jinja2" -print -delete
+
 # enter user directory
 cd "/home/tori"
 

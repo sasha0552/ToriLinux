@@ -3,7 +3,6 @@ base
 base-devel
 btop
 cmake
-cuda
 curl
 darkhttpd
 ffmpeg
@@ -22,8 +21,6 @@ nano
 ncdu
 neofetch
 nfs-utils
-nvidia
-nvidia-utils
 nvtop
 openssh
 progress
@@ -36,3 +33,15 @@ sudo
 syslinux
 wget
 zsh
+
+{% if CUDA %}
+# CUDA
+cuda
+nvidia
+nvidia-utils
+{% endif %}
+
+{% if ROCm %}
+# ROCm
+rocm-hip-sdk
+{% endif %}

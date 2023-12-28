@@ -3,6 +3,8 @@ set -eu
 
 # vllm patches
 pushd "vllm"
+{% if CUDA %}
   # build for pascal
   patch -p1 < "$CUSTOMIZE_AIROOTFS/patches/0100-vllm-build-for-pascal.patch"
+{% endif %}
 popd
