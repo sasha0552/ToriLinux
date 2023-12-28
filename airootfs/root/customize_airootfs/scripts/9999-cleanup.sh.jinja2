@@ -9,3 +9,8 @@ rm -fr /home/tori/.config/matplotlib
 
 # keras
 rm -fr /home/tori/.keras
+
+{% if ROCm %}
+# remove axolotl if rocm
+rm -fr /home/tori/axolotl
+{% endif %}

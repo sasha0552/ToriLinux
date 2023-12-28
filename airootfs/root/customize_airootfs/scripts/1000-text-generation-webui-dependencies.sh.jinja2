@@ -11,7 +11,14 @@ pushd "text-generation-webui"
 
   # activate venv
   source venv/bin/activate
-    # install dependencies
+{% if CUDA %}
+    # install dependencies (cuda)
     pip3 install -r requirements.txt
+{% endif %}
+
+{% if ROCm %}
+    # install dependencies (rocm)
+    pip3 install -r requirements_amd.txt
+{% endif %}
   deactivate
 popd

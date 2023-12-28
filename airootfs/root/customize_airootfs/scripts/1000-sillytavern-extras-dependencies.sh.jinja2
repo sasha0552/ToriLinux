@@ -11,8 +11,17 @@ pushd "SillyTavern-Extras"
 
   # activate venv
   source venv/bin/activate
-    # install dependencies
+{% if CUDA %}
+    # install dependencies (cuda)
     pip3 install -r requirements.txt
+{% endif %}
+
+{% if ROCm %}
+    # install dependencies (rocm)
+    pip3 install -r requirements-rocm.txt
+{% endif %}
+
+    # install remaining dependencies
     pip3 install -r requirements-coqui.txt
     pip3 install -r requirements-rvc.txt
   deactivate
