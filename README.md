@@ -28,3 +28,7 @@ To use ToriLinux:
 ## Misc
 
 Note that you need pre-downloaded models on a local hard drive or NFS server, or enough RAM and internet connection to download models directly into RAM.
+
+Note that following projects is not available on ROCm version:
+* [axolotl](https://github.com/OpenAccess-AI-Collective/axolotl)
+* [vllm](https://github.com/vllm-project/vllm)
