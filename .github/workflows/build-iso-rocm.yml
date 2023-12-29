@@ -1,4 +1,4 @@
-name: Build ISO (CUDA)
+name: Build ISO (ROCm)
 
 on:
   - push
@@ -54,9 +54,9 @@ jobs:
              # export build artifacts for netboot
             EOF
 
-            # Configure to use CUDA
+            # Configure to use ROCm
             pushd /workspace
-              python3 .ci/configure.py cuda
+              python3 .ci/configure.py rocm
             popd
 
             # Build image

@@ -7,6 +7,14 @@ mv /usr/lib/os-release.new /usr/lib/os-release
 # set user password
 echo "tori:tori" | chpasswd
 
+# remove any jinja2 files
+find -type f -name "*.jinja2" -print -delete
+
+{% if ROCm %}
+# remove nvidia-persistenced if rocm
+rm -f /etc/systemd/system/multi-user.target.wants/nvidia-persistenced.service
+{% endif %}
+
 # enter user directory
 cd "/home/tori"
 

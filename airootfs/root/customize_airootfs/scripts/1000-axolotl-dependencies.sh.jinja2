@@ -3,6 +3,7 @@ set -eu
 
 # axolotl dependencies
 pushd "axolotl"
+{% if CUDA %}
   # disable package caching
   export PIP_NO_CACHE_DIR=0
 
@@ -33,4 +34,5 @@ pushd "axolotl"
     # downgrade flash-attn (https://github.com/OpenAccess-AI-Collective/axolotl/issues/911#issuecomment-1868546443)
     pip3 install flash-attn==2.3.2
   deactivate
+{% endif %}
 popd

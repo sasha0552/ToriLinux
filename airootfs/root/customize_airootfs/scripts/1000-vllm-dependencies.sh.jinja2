@@ -3,6 +3,7 @@ set -eu
 
 # vllm dependencies
 pushd "vllm"
+{% if CUDA %}
   # disable package caching
   export PIP_NO_CACHE_DIR=0
 
@@ -43,4 +44,5 @@ pushd "vllm"
     # install dependencies
     pip3 install -r requirements.txt
   deactivate
+{% endif %}
 popd

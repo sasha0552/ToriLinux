@@ -14,4 +14,10 @@ pushd "automatic"
     # install dependencies
     python3 launch.py --test
   deactivate
+
+  # remove installation config
+  rm config.json
+
+  # remove installation log
+  rm sdnext.log
 popd
