@@ -3,7 +3,6 @@ set -eu
 
 # vllm dependencies
 pushd "vllm"
-{% if CUDA %}
   # disable package caching
   export PIP_NO_CACHE_DIR=0
 
@@ -73,5 +72,4 @@ pushd "vllm"
     # install dependencies for openai api server
     pip3 install accelerate
   deactivate
-{% endif %}
 popd
