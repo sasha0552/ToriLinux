@@ -3,15 +3,15 @@ set -eu
 
 # vllm dependencies
 pushd "vllm"
+{% if CUDA %}
   # disable package caching
   export PIP_NO_CACHE_DIR=0
 
   # limit the number of parallel jobs to avoid OOM
   export MAX_JOBS=1
 
-{% if CUDA %}
   # define supported architectures
-  export TORCH_CUDA_ARCH_LIST="6.0 6.1 6.2 7.0 7.2 7.5 8.0 8.6 8.9 9.0 9.0+PTX"
+  export TORCH_CUDA_ARCH_LIST="6.0 6.1 7.0 7.5 8.0 8.6 8.9 9.0"
 
   # cuda home directory
   export CUDA_HOME=/opt/cuda
@@ -19,44 +19,14 @@ pushd "vllm"
   # use gcc 12
   export CC=gcc-12
   export CXX=g++-12
-{% endif %}
-
-{% if ROCm %}
-  # define supported architectures
-  export TORCH_CUDA_ARCH_LIST="gfx803 gfx900 gfx906 gfx908 gfx90a gfx1030 gfx1100 gfx1101 gfx1102"
-
-  # rocm home directory
-  export ROCM_HOME=/opt/rocm
-
-  # extract rocm version
-  #rocm_version=$(grep -o 'rocm/pytorch:rocm[0-9.]*' Dockerfile.rocm | cut -d : -f 2)
-
-  # TODO: rocm5.7 is not present in repo
-  rocm_version="rocm5.6"
-
-  # create pytorch url
-  index_url="https://download.pytorch.org/whl/$rocm_version"
-{% endif %}
 
   # create venv
   python3 -m venv venv
 
   # activate venv
   source venv/bin/activate
-{% if CUDA %}
-    # install dependencies (cuda)
+    # install dependencies
     pip3 install -r requirements.txt
-{% endif %}
-
-{% if ROCm %}
-    # install pytorch
-    pip3 install torch torchvision torchaudio --index-url "$index_url"
-
-    # install dependencies (rocm)
-    pip3 install -r requirements-rocm.txt
-{% endif %}
-
-    # install dependencies (build)
     pip3 install -r requirements-build.txt
 
     # build native extension
@@ -71,20 +41,8 @@ pushd "vllm"
 
   # activate venv
   source venv/bin/activate
-{% if CUDA %}
-    # install dependencies (cuda)
+    # install dependencies
     pip3 install -r requirements.txt
-{% endif %}
-
-{% if ROCm %}
-    # install pytorch
-    pip3 install torch torchvision torchaudio --index-url "$index_url"
-
-    # install dependencies (rocm)
-    pip3 install -r requirements-rocm.txt
-{% endif %}
-
-    # install dependencies for openai api server
-    pip3 install accelerate
   deactivate
+{% endif %}
 popd
