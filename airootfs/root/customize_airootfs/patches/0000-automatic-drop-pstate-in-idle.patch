@@ -8,7 +8,7 @@
  
  
  commandline_args = os.environ.get('COMMANDLINE_ARGS', "")
-@@ -165,6 +166,7 @@ def start_server(immediate=True, server=None):
+@@ -175,6 +176,7 @@ def start_server(immediate=True, server=None):
  
  
  if __name__ == "__main__":
@@ -26,7 +26,7 @@
  
  
  class State:
-@@ -77,6 +78,8 @@ class State:
+@@ -79,6 +80,8 @@ class State:
          self.time_start = time.time()
          if self.debug_output:
              log.debug(f'State begin: {self.job}')
@@ -34,8 +34,8 @@
 +            enter_pstate_high()
          modules.devices.torch_gc()
  
-     def end(self):
-@@ -86,6 +89,8 @@ class State:
+     def end(self, api=None):
+@@ -88,6 +91,8 @@ class State:
              self.time_start = time.time()
          if self.debug_output:
              log.debug(f'State end: {self.job} time={time.time() - self.time_start:.2f}')

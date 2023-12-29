@@ -31,6 +31,9 @@ def main():
 
   # render every file
   for filepath in glob.glob("**/*.jinja2", recursive=True) + [".gitignore.jinja2"]:
+    # sort rendered list
+    rendered.sort()
+
     # render file
     render_template(filepath, CUDA=cuda, ROCm=rocm, rendered=rendered)
 
