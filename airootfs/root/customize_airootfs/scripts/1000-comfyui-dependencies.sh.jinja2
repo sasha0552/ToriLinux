@@ -1,0 +1,25 @@
+#!/bin/bash
+set -eu
+
+# ComfyUI dependencies
+pushd "ComfyUI"
+  # disable package caching
+  export PIP_NO_CACHE_DIR=0
+
+  # create venv
+  python3 -m venv venv
+
+  # activate venv
+  source venv/bin/activate
+{% if ROCm %}
+    # extract pytorch version
+    index_url=$(grep -o 'https://download.pytorch.org/whl/rocm[0-9.]*' README.md)
+
+    # install pytorch
+    pip3 install torch torchvision torchaudio --index-url "$index_url"
+{% endif %}
+
+    # install dependencies
+    pip3 install -r requirements.txt
+  deactivate
+popd

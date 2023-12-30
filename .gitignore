@@ -6,6 +6,7 @@ airootfs/root/customize_airootfs.sh
 airootfs/root/customize_airootfs/scripts/0100-automatic-patches.sh
 airootfs/root/customize_airootfs/scripts/0100-koboldcpp-patches.sh
 airootfs/root/customize_airootfs/scripts/1000-axolotl-dependencies.sh
+airootfs/root/customize_airootfs/scripts/1000-comfyui-dependencies.sh
 airootfs/root/customize_airootfs/scripts/1000-sillytavern-extras-dependencies.sh
 airootfs/root/customize_airootfs/scripts/1000-text-generation-webui-dependencies.sh
 airootfs/root/customize_airootfs/scripts/1000-vllm-dependencies.sh
