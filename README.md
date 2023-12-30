@@ -3,6 +3,7 @@
 LiveCD distribution based on [ArchLinux](https://archlinux.org/) and currently includes the following projects preinstalled, along with their dependencies:
 * [automatic](https://github.com/vladmandic/automatic)
 * [axolotl](https://github.com/OpenAccess-AI-Collective/axolotl)
+* [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
 * [koboldcpp](https://github.com/LostRuins/koboldcpp)
 * [llama.cpp](https://github.com/ggerganov/llama.cpp)
 * [SillyTavern-Extras](https://github.com/SillyTavern/SillyTavern-Extras)

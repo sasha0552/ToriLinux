@@ -6,6 +6,10 @@
   path = airootfs/home/tori/axolotl
   url = https://github.com/OpenAccess-AI-Collective/axolotl.git
 
+[submodule "airootfs/home/tori/ComfyUI"]
+  path = airootfs/home/tori/ComfyUI
+  url = https://github.com/comfyanonymous/ComfyUI.git
+
 [submodule "airootfs/home/tori/koboldcpp"]
   path = airootfs/home/tori/koboldcpp
   url = https://github.com/LostRuins/koboldcpp.git
