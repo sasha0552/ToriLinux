@@ -28,46 +28,16 @@ jobs:
             # Exit on error
             set -eu
 
-            # Refresh package databases
-            pacman --sync --noconfirm --refresh
-
-            # Upgrade system
-            pacman --sync --noconfirm --sysupgrade
-
-            # Install required packages
-            pacman --sync --noconfirm --needed archiso patch python python-jinja rdfind
-
-            # Apply patch to archiso
-            patch -p0 << 'EOF'
-            --- /usr/bin/mkarchiso
-            +++ /usr/bin/mkarchiso
-            @@ -1212,6 +1212,10 @@
-
-             # Build airootfs filesystem image
-             _prepare_airootfs_image() {
-            +    _msg_info 'Deduping files in the pacstrap directory...'
-            +    rdfind -checksum sha256 -makehardlinks true "${pacstrap_dir:?}/"
-            +    _msg_info 'Done!'
-            +
-                 _run_once "_mkairootfs_${airootfs_image_type}"
-                 _mkchecksum
-
-            @@ -1227,6 +1231,10 @@
-                 if [[ -v cert_list ]]; then
-                     _cms_sign_artifact "${airootfs_image_filename}"
-                 fi
-            +
-            +    _msg_info 'Removing the pacstrap directory...'
-            +    rm -rf -- "${pacstrap_dir:?}/"
-            +    _msg_info 'Done!'
-             }
-
-             # export build artifacts for netboot
-            EOF
-
-            # Configure to use ROCm
+            # Enter project directory
             pushd /workspace
-              python3 .ci/configure.py rocm
+              # Install dependencies
+              .ci/dependencies.sh
+
+              # Patch mkarchiso
+              .ci/mkarchiso.sh
+
+              # Configure to use ROCm
+              .ci/configure.py rocm
             popd
 
             # Build image
