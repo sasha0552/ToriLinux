@@ -28,14 +28,15 @@ jobs:
             # Exit on error
             set -eu
 
-            # Install dependencies
-            .ci/dependencies.sh
-
-            # Patch mkarchiso
-            .ci/mkarchiso.sh
-
-            # Configure to use CUDA
+            # Enter project directory
             pushd /workspace
+              # Install dependencies
+              .ci/dependencies.sh
+
+              # Patch mkarchiso
+              .ci/mkarchiso.sh
+
+              # Configure to use CUDA
               .ci/configure.py cuda
             popd
 

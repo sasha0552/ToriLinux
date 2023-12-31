@@ -28,14 +28,15 @@ jobs:
             # Exit on error
             set -eu
 
-            # Install dependencies
-            .ci/dependencies.sh
-
-            # Patch mkarchiso
-            .ci/mkarchiso.sh
-
-            # Configure to use ROCm
+            # Enter project directory
             pushd /workspace
+              # Install dependencies
+              .ci/dependencies.sh
+
+              # Patch mkarchiso
+              .ci/mkarchiso.sh
+
+              # Configure to use ROCm
               .ci/configure.py rocm
             popd
 
