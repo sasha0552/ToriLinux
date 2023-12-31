@@ -2,7 +2,7 @@
 set -eu
 
 # Apply patch to archiso
-patch -p0 << 'EOF'
+patch -d/ -p0 << 'EOF'
 --- /usr/bin/mkarchiso
 +++ /usr/bin/mkarchiso
 @@ -1212,6 +1212,10 @@
