@@ -26,5 +26,11 @@ pushd "text-generation-webui"
     # install dependencies (rocm)
     pip3 install -r requirements_amd.txt
 {% endif %}
+
+    # openai extensions dependencies
+    pip3 install -r extensions/openai/requirements.txt
+
+    # TODO: downgrade jinja2 (https://github.com/oobabooga/text-generation-webui/issues/5248)
+    pip3 install jinja2==3.1.2
   deactivate
 popd
