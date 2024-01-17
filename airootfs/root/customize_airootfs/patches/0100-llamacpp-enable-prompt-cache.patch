@@ -18,7 +18,7 @@
          slot->params.n_predict        = json_value(data, "n_predict",         default_params.n_predict);
          slot->sparams.top_k           = json_value(data, "top_k",             default_sparams.top_k);
          slot->sparams.top_p           = json_value(data, "top_p",             default_sparams.top_p);
-@@ -2517,7 +2517,7 @@ json oaicompat_completion_params_parse(
+@@ -2592,7 +2592,7 @@ json oaicompat_completion_params_parse(
      llama_sampling_params default_sparams;
      llama_params["model"]             = json_value(body, "model", std::string("unknown"));
      llama_params["prompt"]            = format_chatml(body["messages"]); // OpenAI 'messages' to llama.cpp 'prompt'
