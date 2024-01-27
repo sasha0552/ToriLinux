@@ -12,7 +12,7 @@ jobs:
       - name: Cleanup
         uses: rokibhasansagar/slimhub_actions@main
         with:
-          retain: "docker_imgcache,docker_buildkit,docker_imgcache"
+          retain: "docker_buildkit,docker_imgcache"
 
       - name: Checkout repository
         uses: actions/checkout@v4
