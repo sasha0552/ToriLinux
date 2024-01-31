@@ -43,6 +43,14 @@ jobs:
             # Build image
             mkarchiso -v -m iso -w /workspace/work -o /workspace/out /workspace
 
+      - name: Create summary
+        run: |
+          # Exit on error
+          set -eu
+
+          # Print checksums to summary
+          sha256sum out/* > "$GITHUB_STEP_SUMMARY"
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
