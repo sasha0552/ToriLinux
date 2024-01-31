@@ -43,6 +43,9 @@ jobs:
             # Build image
             mkarchiso -v -m iso -w /workspace/work -o /workspace/out /workspace
 
+            # Calculate checksums
+            sha256sum out/* >> $GITHUB_STEP_SUMMARY
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
