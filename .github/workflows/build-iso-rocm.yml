@@ -48,14 +48,14 @@ jobs:
           # Exit on error
           set -eu
 
-          # Start code block
-          echo "```" >> $GITHUB_STEP_SUMMARY
-
           # Calculate checksums
-          sha256sum out/* >> $GITHUB_STEP_SUMMARY
+          sha256sums=$(sha256sum out/*)
 
-          # End code block
-          echo "```" >> $GITHUB_STEP_SUMMARY
+          # Create directory with summary file
+          mkdir -p $(dirname $GITHUB_STEP_SUMMARY)
+
+          # Print summary
+          echo "```\n$sha256sums\n```" > $GITHUB_STEP_SUMMARY
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
