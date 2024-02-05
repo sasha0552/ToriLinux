@@ -10,7 +10,7 @@ patch -d/ -p0 << 'EOF'
  # Build airootfs filesystem image
  _prepare_airootfs_image() {
 +    _msg_info 'Deduping files in the pacstrap directory...'
-+    rdfind -checksum sha256 -makehardlinks true -makeresultsfile false "${pacstrap_dir:?}/"
++    rdfind -checksum sha256 -makehardlinks true "${pacstrap_dir:?}/"
 +    _msg_info 'Done!'
 +
      _run_once "_mkairootfs_${airootfs_image_type}"
