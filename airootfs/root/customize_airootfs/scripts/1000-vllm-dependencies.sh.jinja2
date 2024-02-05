@@ -49,5 +49,5 @@ popd
 
 {% if ROCm %}
 # Dedupe files
-rdfind -checksum sha256 -makehardlinks true .
+rdfind -checksum sha256 -makehardlinks true -makeresultsfile false .
 {% endif %}
