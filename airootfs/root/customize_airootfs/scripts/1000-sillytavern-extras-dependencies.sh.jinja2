@@ -26,3 +26,8 @@ pushd "SillyTavern-Extras"
     pip3 install -r requirements-rvc.txt
   deactivate
 popd
+
+{% if ROCm %}
+# Dedupe files
+rdfind -checksum sha256 -makehardlinks true .
+{% endif %}

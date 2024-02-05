@@ -31,3 +31,8 @@ pushd "text-generation-webui"
     pip3 install -r extensions/openai/requirements.txt
   deactivate
 popd
+
+{% if ROCm %}
+# Dedupe files
+rdfind -checksum sha256 -makehardlinks true .
+{% endif %}

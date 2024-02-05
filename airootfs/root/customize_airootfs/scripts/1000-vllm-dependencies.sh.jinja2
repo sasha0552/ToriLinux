@@ -46,3 +46,8 @@ pushd "vllm"
   deactivate
 {% endif %}
 popd
+
+{% if ROCm %}
+# Dedupe files
+rdfind -checksum sha256 -makehardlinks true .
+{% endif %}

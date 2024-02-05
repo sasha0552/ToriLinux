@@ -23,3 +23,8 @@ pushd "ComfyUI"
     pip3 install -r requirements.txt
   deactivate
 popd
+
+{% if ROCm %}
+# Dedupe files
+rdfind -checksum sha256 -makehardlinks true .
+{% endif %}

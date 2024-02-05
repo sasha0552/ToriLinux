@@ -21,3 +21,8 @@ pushd "automatic"
   # remove installation log
   rm sdnext.log
 popd
+
+{% if ROCm %}
+# Dedupe files
+rdfind -checksum sha256 -makehardlinks true .
+{% endif %}
