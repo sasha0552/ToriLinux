@@ -26,7 +26,8 @@ pushd "axolotl"
   # activate venv
   source venv/bin/activate
     # install dependencies
-    pip3 install packaging torch wheel
+    # TODO: install specific torch version
+    pip3 install packaging torch==2.1.1 wheel
 
     # install axolotl
     pip3 install -e ".[flash-attn,deepspeed]"
