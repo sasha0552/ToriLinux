@@ -1,15 +1,15 @@
 --- a/setup.py
 +++ b/setup.py
-@@ -18,7 +18,7 @@ ROOT_DIR = os.path.dirname(__file__)
+@@ -23,7 +23,7 @@ ROOT_DIR = os.path.dirname(__file__)
  MAIN_CUDA_VERSION = "12.1"
  
  # Supported NVIDIA GPU architectures.
 -NVIDIA_SUPPORTED_ARCHS = {"7.0", "7.5", "8.0", "8.6", "8.9", "9.0"}
 +NVIDIA_SUPPORTED_ARCHS = {"6.0", "6.1", "7.0", "7.5", "8.0", "8.6", "8.9", "9.0"}
- ROCM_SUPPORTED_ARCHS = {"gfx90a", "gfx908", "gfx906", "gfx1030", "gfx1100"}
+ ROCM_SUPPORTED_ARCHS = {"gfx90a", "gfx942"}
  # SUPPORTED_ARCHS = NVIDIA_SUPPORTED_ARCHS.union(ROCM_SUPPORTED_ARCHS)
  
-@@ -184,9 +184,9 @@ if _is_cuda() and not compute_capabilities:
+@@ -222,9 +222,9 @@ if _is_cuda() and not compute_capabilities:
      device_count = torch.cuda.device_count()
      for i in range(device_count):
          major, minor = torch.cuda.get_device_capability(i)

@@ -14,12 +14,12 @@
 @@ -525,7 +525,7 @@ struct llama_server_context
          }
  
-         slot->params.stream           = json_value(data, "stream",            false);
--        slot->params.cache_prompt     = json_value(data, "cache_prompt",      false);
-+        slot->params.cache_prompt     = json_value(data, "cache_prompt",      true);
-         slot->params.n_predict        = json_value(data, "n_predict",         default_params.n_predict);
-         slot->sparams.top_k           = json_value(data, "top_k",             default_sparams.top_k);
-         slot->sparams.top_p           = json_value(data, "top_p",             default_sparams.top_p);
+         slot->params.stream             = json_value(data, "stream",            false);
+-        slot->params.cache_prompt       = json_value(data, "cache_prompt",      false);
++        slot->params.cache_prompt       = json_value(data, "cache_prompt",      true);
+         slot->params.n_predict          = json_value(data, "n_predict",         default_params.n_predict);
+         slot->sparams.top_k             = json_value(data, "top_k",             default_sparams.top_k);
+         slot->sparams.top_p             = json_value(data, "top_p",             default_sparams.top_p);
 --- a/examples/server/utils.hpp
 +++ b/examples/server/utils.hpp
 @@ -93,7 +93,7 @@ enum slot_command
