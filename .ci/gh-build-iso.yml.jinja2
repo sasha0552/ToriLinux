@@ -1,4 +1,4 @@
-name: Build ISO on hosted runner (ROCm)
+name: Build ISO on hosted runner ({{ "CUDA" if type == "cuda" else "ROCm" }})
 
 on:
   - push
@@ -23,7 +23,9 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: archlinux:latest
+{%- raw %}
           options: --privileged --volume ${{ github.workspace }}:/workspace
+{%- endraw %}
           run: |
             # Exit on error
             set -eu
@@ -36,8 +38,8 @@ jobs:
               # Patch mkarchiso
               .ci/mkarchiso.sh
 
-              # Configure to use ROCm
-              .ci/configure.py rocm
+              # Configure to use {{ "CUDA" if type == "cuda" else "ROCm" }}
+              .ci/configure.py {{ type }}
             popd
 
             # Build image
@@ -56,3 +58,4 @@ jobs:
         with:
           name: archiso-output
           path: out/
+
