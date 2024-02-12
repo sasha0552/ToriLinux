@@ -20,6 +20,5 @@ def main():
       with open(f".github/workflows/{filename}-{type}.yml", "w") as file:
         file.write(rendered)
 
-
 if __name__ == "__main__":
   main()
