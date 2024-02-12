@@ -1,0 +1,81 @@
+name: Build ISO on selfhosted runner (ROCm)
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print state before cleanup in home directory
+        shell: bash
+        run: ls -la $HOME
+
+      - name: Remove all files and directories in home directory
+        shell: bash
+        run: |-
+          rm -rf $HOME/* || true
+          rm -rf $HOME/.??* || true
+
+      - name: Print state after cleanup in home directory
+        shell: bash
+        run: ls -la $HOME
+
+      - name: Print state before cleanup in working directory
+        shell: bash
+        run: ls -la .
+
+      - name: Remove all files and directories in working directory
+        shell: bash
+        run: |-
+          rm -rf ./* || true
+          rm -rf ./.??* || true
+
+      - name: Print state after cleanup in working directory
+        shell: bash
+        run: ls -la .
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build image
+        uses: addnab/docker-run-action@v3
+        with:
+          image: archlinux:latest
+          options: --privileged --volume ${{ github.workspace }}:/workspace
+          run: |
+            # Exit on error
+            set -eu
+
+            # Enter project directory
+            pushd /workspace
+              # Install dependencies
+              .ci/dependencies.sh
+
+              # Patch mkarchiso
+              .ci/mkarchiso.sh
+
+              # Configure to use ROCm
+              .ci/configure.py rocm
+            popd
+
+            # Build image
+            mkarchiso -v -m iso -w /workspace/work -o /workspace/out /workspace
+
+      - name: Create summary
+        run: |
+          # Exit on error
+          set -eu
+
+          # Print checksums to summary
+          sha256sum out/* > "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: archiso-output
+          path: out/
