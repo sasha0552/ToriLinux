@@ -17,6 +17,8 @@ jobs:
       - name: Set correct permissions
         run: |
           sudo chown -R $USER:$USER "$GITHUB_WORKSPACE"
+          echo "$GITHUB_WORKSPACE"
+          ls -la "$GITHUB_WORKSPACE"
 
       - name: Checkout repository
         uses: actions/checkout@v4
