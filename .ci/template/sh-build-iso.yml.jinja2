@@ -9,34 +9,6 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Print state before cleanup in home directory
-        shell: bash
-        run: ls -la $HOME
-
-      - name: Remove all files and directories in home directory
-        shell: bash
-        run: |-
-          rm -rf $HOME/* || true
-          rm -rf $HOME/.??* || true
-
-      - name: Print state after cleanup in home directory
-        shell: bash
-        run: ls -la $HOME
-
-      - name: Print state before cleanup in working directory
-        shell: bash
-        run: ls -la .
-
-      - name: Remove all files and directories in working directory
-        shell: bash
-        run: |-
-          rm -rf ./* || true
-          rm -rf ./.??* || true
-
-      - name: Print state after cleanup in working directory
-        shell: bash
-        run: ls -la .
-
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
