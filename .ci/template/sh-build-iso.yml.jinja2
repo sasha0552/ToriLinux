@@ -14,6 +14,10 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - name: Set correct permissions
+        run: |
+          sudo chown -R $USER:$USER "$GITHUB_WORKSPACE"
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
