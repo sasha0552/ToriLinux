@@ -10,7 +10,17 @@ on:
     - main
 
 jobs:
+  vm-start:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Start virtual machine
+        run: |
+          # Do nothing for now
+          exit 0
+
   build:
+    needs: vm-start
     runs-on: self-hosted
 
     steps:
@@ -56,3 +66,23 @@ jobs:
         with:
           name: archiso-output
           path: out/
+
+  vm-shutdown:
+    needs: build
+    runs-on: self-hosted
+
+    steps:
+      - name: Stop virtual machine
+        run: |
+          # Shutdown in 1 minute
+          sudo shutdown 1
+
+  vm-shutdown-wait:
+    needs: vm-shutdown
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Wait until virtual machine is stopped
+        run: |
+          # Wait for 2 minutes
+          sleep 120
