@@ -34,4 +34,4 @@ Note that following projects is not available on ROCm version:
 * [axolotl](https://github.com/OpenAccess-AI-Collective/axolotl)
 * [vllm](https://github.com/vllm-project/vllm)
 
-The server for building the ROCm version is provided by @Sepera-okeq.
+The server for building the ROCm version is provided by [@Sepera-okeq](https://github.com/Sepera-okeq/).
