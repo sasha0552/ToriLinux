@@ -43,7 +43,7 @@ jobs:
             popd
 
             # Build image
-            mkarchiso -v -m iso -w /workspace/work -o /workspace/out /workspace
+            mkarchiso -v -m iso -w /_work -o /workspace/out /workspace
 
       - name: Create summary
         run: |
@@ -58,4 +58,3 @@ jobs:
         with:
           name: archiso-output
           path: out/
-
