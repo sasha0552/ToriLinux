@@ -33,3 +33,5 @@ Note that you need pre-downloaded models on a local hard drive or NFS server, or
 Note that following projects is not available on ROCm version:
 * [axolotl](https://github.com/OpenAccess-AI-Collective/axolotl)
 * [vllm](https://github.com/vllm-project/vllm)
+
+The server for building the ROCm version is provided by @Sepera-okeq.
