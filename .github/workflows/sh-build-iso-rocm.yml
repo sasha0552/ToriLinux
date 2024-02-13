@@ -14,9 +14,9 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Remove archiso directories
+      - name: Remove archiso working directory
         run: |
-          sudo rm -fr "out/" "work/"
+          sudo rm -fr "$GITHUB_WORKSPACE/work"
 
       - name: Checkout repository
         uses: actions/checkout@v4
