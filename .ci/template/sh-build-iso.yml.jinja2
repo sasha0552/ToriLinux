@@ -19,7 +19,7 @@ jobs:
         with:
           image: archlinux:latest
 {%- raw %}
-          options: --privileged --volume ${{ github.workspace }}:/workspace
+          options: --privileged --rm --volume ${{ github.workspace }}:/workspace
 {%- endraw %}
           run: |
             # Exit on error
