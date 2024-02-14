@@ -1,19 +1,29 @@
-name: Build ISO (CUDA)
+name: Build ISO on selfhosted runner (ROCm)
 
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+    - main
+
+  pull_request:
+    branches:
+    - main
 
 jobs:
-  build:
+  vm-start:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Cleanup
-        uses: rokibhasansagar/slimhub_actions@main
-        with:
-          retain: "docker_buildkit,docker_imgcache"
+      - name: Start virtual machine
+        run: |
+          # Do nothing for now
+          exit 0
 
+  build:
+    needs: vm-start
+    runs-on: self-hosted
+
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -23,7 +33,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: archlinux:latest
-          options: --privileged --volume ${{ github.workspace }}:/workspace
+          options: --privileged --rm --volume ${{ github.workspace }}:/workspace
           run: |
             # Exit on error
             set -eu
@@ -36,12 +46,12 @@ jobs:
               # Patch mkarchiso
               .ci/mkarchiso.sh
 
-              # Configure to use CUDA
-              .ci/configure.py cuda
+              # Configure to use ROCm
+              .ci/configure.py rocm
             popd
 
             # Build image
-            mkarchiso -v -m iso -w /workspace/work -o /workspace/out /workspace
+            mkarchiso -v -m iso -w /_work -o /workspace/out /workspace
 
       - name: Create summary
         run: |
@@ -56,3 +66,23 @@ jobs:
         with:
           name: archiso-output
           path: out/
+
+  vm-shutdown:
+    needs: build
+    runs-on: self-hosted
+
+    steps:
+      - name: Stop virtual machine
+        run: |
+          # Shutdown in 1 minute
+          sudo shutdown 1
+
+  vm-shutdown-wait:
+    needs: vm-shutdown
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Wait until virtual machine is stopped
+        run: |
+          # Wait for 2 minutes
+          sleep 120

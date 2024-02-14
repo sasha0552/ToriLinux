@@ -1,9 +1,9 @@
 --- a/examples/server/oai.hpp
 +++ b/examples/server/oai.hpp
-@@ -31,7 +31,7 @@ inline static json oaicompat_completion_params_parse(
+@@ -35,7 +35,7 @@ inline static json oaicompat_completion_params_parse(
      llama_sampling_params default_sparams;
      llama_params["model"]             = json_value(body, "model", std::string("unknown"));
-     llama_params["prompt"]            = format_chatml(body["messages"]); // OpenAI 'messages' to llama.cpp 'prompt'
+     llama_params["prompt"]            = formatted_prompt;
 -    llama_params["cache_prompt"]      = json_value(body, "cache_prompt", false);
 +    llama_params["cache_prompt"]      = json_value(body, "cache_prompt", true);
      llama_params["temperature"]       = json_value(body, "temperature", 0.0);
@@ -11,7 +11,7 @@
      llama_params["top_p"]             = json_value(body, "top_p", 1.0);
 --- a/examples/server/server.cpp
 +++ b/examples/server/server.cpp
-@@ -525,7 +525,7 @@ struct llama_server_context
+@@ -526,7 +526,7 @@ struct llama_server_context
          }
  
          slot->params.stream             = json_value(data, "stream",            false);

@@ -17,4 +17,7 @@ pacman-key --init
 pacman-key --populate
 
 # Install required packages
-pacman --sync --noconfirm --needed archiso patch python python-jinja rdfind
+pacman --sync --noconfirm --needed archiso patch python python-jinja rdfind reflector
+
+# Configure mirrorlist
+reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
