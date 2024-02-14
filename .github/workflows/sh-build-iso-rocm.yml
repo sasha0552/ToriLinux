@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Start virtual machine
         run: |
-          # Do nothing for now
+          # FIXME
           exit 0
 
   build:
@@ -24,6 +24,10 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - name: Remove previous artifacts
+        run: |
+          sudo rm -fr out/
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -68,6 +72,7 @@ jobs:
           path: out/
 
   vm-shutdown:
+    if: "!cancelled()"
     needs: build
     runs-on: self-hosted
 
@@ -78,6 +83,7 @@ jobs:
           sudo shutdown 1
 
   vm-shutdown-wait:
+    if: "!cancelled()"
     needs: vm-shutdown
     runs-on: ubuntu-latest
 
