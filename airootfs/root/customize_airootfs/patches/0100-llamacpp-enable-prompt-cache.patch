@@ -11,7 +11,7 @@
      llama_params["top_p"]             = json_value(body, "top_p", 1.0);
 --- a/examples/server/server.cpp
 +++ b/examples/server/server.cpp
-@@ -526,7 +526,7 @@ struct llama_server_context
+@@ -522,7 +522,7 @@ struct llama_server_context
          }
  
          slot->params.stream             = json_value(data, "stream",            false);
