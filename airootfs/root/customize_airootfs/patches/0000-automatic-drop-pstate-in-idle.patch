@@ -8,7 +8,15 @@
  
  
  debug_install = installer.log.debug if os.environ.get('SD_INSTALL_DEBUG', None) is not None else lambda *args, **kwargs: None
-@@ -260,4 +261,5 @@ def main():
+@@ -169,6 +170,7 @@ def start_server(immediate=True, server=None):
+     uvicorn = None
+     if args.test:
+         installer.log.info("Test only")
++        exit(0)
+         server.wants_restart = False
+     else:
+         if args.api_only:
+@@ -260,4 +262,5 @@ def main():
  
  
  if __name__ == "__main__":
