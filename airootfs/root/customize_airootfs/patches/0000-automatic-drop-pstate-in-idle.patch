@@ -4,25 +4,23 @@
  import subprocess
  from functools import lru_cache
  import installer
-+from pstates import enter_pstate_high, enter_pstate_low
++from nvidia_pstate import set_pstate_high, set_pstate_low
  
  
- commandline_args = os.environ.get('COMMANDLINE_ARGS', "")
-@@ -175,6 +176,7 @@ def start_server(immediate=True, server=None):
+ debug_install = installer.log.debug if os.environ.get('SD_INSTALL_DEBUG', None) is not None else lambda *args, **kwargs: None
+@@ -260,4 +261,5 @@ def main():
  
  
  if __name__ == "__main__":
-+    enter_pstate_low()
-     installer.ensure_base_requirements()
-     init_args() # setup argparser and default folders
-     installer.args = args
++    set_pstate_low()
+     main()
 --- a/modules/shared_state.py
 +++ b/modules/shared_state.py
 @@ -3,6 +3,7 @@ import sys
  import time
  import datetime
  from modules.errors import log
-+from pstates import enter_pstate_high, enter_pstate_low
++from nvidia_pstate import set_pstate_high, set_pstate_low
  
  
  class State:
@@ -31,7 +29,7 @@
          if self.debug_output:
              log.debug(f'State begin: {self.job}')
 +        if self.job != "load":
-+            enter_pstate_high()
++            set_pstate_high()
          modules.devices.torch_gc()
  
      def end(self, api=None):
@@ -40,7 +38,7 @@
          if self.debug_output:
              log.debug(f'State end: {self.job} time={time.time() - self.time_start:.2f}')
 +        if self.job != "load":
-+            enter_pstate_low()
++            set_pstate_low()
          self.job = ""
          self.job_count = 0
          self.job_no = 0

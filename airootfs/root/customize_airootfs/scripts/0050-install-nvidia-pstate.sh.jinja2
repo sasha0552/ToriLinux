@@ -1,0 +1,6 @@
+#!/bin/bash
+set -eu
+
+{% if CUDA %}
+pip3 install --break-system-packages nvidia-pstate
+{% endif %}
