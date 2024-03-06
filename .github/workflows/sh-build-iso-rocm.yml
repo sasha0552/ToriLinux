@@ -113,4 +113,11 @@ jobs:
 
       - name: Stop Github Actions Runner VM
         run: |
+          # Invoke regular shutdown
           ssh runner "virsh shutdown GithubActions"
+
+          # Wait 2 minutes
+          sleep 120
+
+          # Force terminate if needed
+          ssh runner "virsh destroy GithubActions" || true
