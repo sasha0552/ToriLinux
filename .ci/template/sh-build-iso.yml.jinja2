@@ -11,6 +11,7 @@ on:
 
 jobs:
   vm-start:
+    if: always()
     runs-on: ubuntu-latest
 
     steps:
@@ -33,8 +34,6 @@ jobs:
 
       - name: Start Github Actions Runner VM
         run: |
-          ls -la ~/.ssh/
-          sha256sum ~/.ssh/*
           ssh runner "virsh --connect=qemu:///system start GithubActions"
 
   build:
@@ -92,6 +91,7 @@ jobs:
           path: out/
 
   vm-stop:
+    if: always()
     needs: build
     runs-on: ubuntu-latest
 
