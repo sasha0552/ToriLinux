@@ -17,14 +17,14 @@ jobs:
       - name: Save private key
         run: |
           # Save private key
-          echo "$SSH_PRIVATE_KEY" > /tmp/private.key
+          echo "$SSH_PRIVATE_KEY" | base64 -d > /tmp/private.key
 
           # Change permissions
           chmod 600 /tmp/private.key
 
       - name: Start Github Actions Runner VM
         run: |
-          ssh -i /tmp/private.key $SSH_HOST virsh --connect=qemu:///system start GithubActions
+          ssh -i /tmp/private.key $SSH_HOST "virsh --connect=qemu:///system start GithubActions"
 
   build:
     needs: vm-start
@@ -86,11 +86,11 @@ jobs:
       - name: Save private key
         run: |
           # Save private key
-          echo "$SSH_PRIVATE_KEY" > /tmp/private.key
+          echo "$SSH_PRIVATE_KEY" | base64 -d > /tmp/private.key
 
           # Change permissions
           chmod 600 /tmp/private.key
 
       - name: Stop Github Actions Runner VM
         run: |
-          ssh -i /tmp/private.key $SSH_HOST virsh --connect=qemu:///system shutdown GithubActions
+          ssh -i /tmp/private.key $SSH_HOST "virsh --connect=qemu:///system shutdown GithubActions"
