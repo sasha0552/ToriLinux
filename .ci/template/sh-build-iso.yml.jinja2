@@ -34,7 +34,7 @@ jobs:
 
       - name: Start Github Actions Runner VM
         run: |
-          ssh runner "virsh --connect=qemu:///system start GithubActions"
+          ssh runner "virsh start GithubActions"
 
   build:
     needs: vm-start
@@ -115,4 +115,4 @@ jobs:
 
       - name: Stop Github Actions Runner VM
         run: |
-          ssh runner "virsh --connect=qemu:///system shutdown GithubActions"
+          ssh runner "virsh shutdown GithubActions"
