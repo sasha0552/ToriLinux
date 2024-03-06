@@ -18,16 +18,16 @@ jobs:
         run: |
           # Create ssh directory
           mkdir ~/.ssh
-
+{% raw %}
           # Save ssh config
-          echo "$SSH_CONFIG" | base64 -d > ~/.ssh/config
+          echo "${{ $SSH_CONFIG }}" | base64 -d > ~/.ssh/config
 
           # Save ssh known hosts
-          echo "$SSH_KNOWN_HOSTS" | base64 -d > ~/.ssh/known_hosts
+          echo "${{ $SSH_KNOWN_HOSTS }}" | base64 -d > ~/.ssh/known_hosts
 
           # Save ssh private key
-          echo "$SSH_PRIVATE_KEY" | base64 -d > /tmp/private.key
-
+          echo "${{ SSH_PRIVATE_KEY }}" | base64 -d > /tmp/private.key
+{% endraw %}
           # Fix permissions for private key
           chmod 600 /tmp/private.key
 
@@ -100,16 +100,16 @@ jobs:
         run: |
           # Create ssh directory
           mkdir ~/.ssh
-
+{% raw %}
           # Save ssh config
-          echo "$SSH_CONFIG" | base64 -d > ~/.ssh/config
+          echo "${{ $SSH_CONFIG }}" | base64 -d > ~/.ssh/config
 
           # Save ssh known hosts
-          echo "$SSH_KNOWN_HOSTS" | base64 -d > ~/.ssh/known_hosts
+          echo "${{ $SSH_KNOWN_HOSTS }}" | base64 -d > ~/.ssh/known_hosts
 
           # Save ssh private key
-          echo "$SSH_PRIVATE_KEY" | base64 -d > /tmp/private.key
-
+          echo "${{ SSH_PRIVATE_KEY }}" | base64 -d > /tmp/private.key
+{% endraw %}
           # Fix permissions for private key
           chmod 600 /tmp/private.key
 
