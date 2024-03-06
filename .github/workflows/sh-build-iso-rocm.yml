@@ -33,6 +33,8 @@ jobs:
 
       - name: Start Github Actions Runner VM
         run: |
+          ls -la ~/.ssh/
+          sha256sum ~/.ssh/*
           ssh runner "virsh --connect=qemu:///system start GithubActions"
 
   build:
