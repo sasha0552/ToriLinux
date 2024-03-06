@@ -16,6 +16,9 @@ jobs:
     steps:
       - name: Save ssh configuration
         run: |
+          # Create ssh directory
+          mkdir ~/.ssh
+
           # Save ssh config
           echo "$SSH_CONFIG" | base64 -d > ~/.ssh/config
 
@@ -91,6 +94,9 @@ jobs:
     steps:
       - name: Save ssh configuration
         run: |
+          # Create ssh directory
+          mkdir ~/.ssh
+
           # Save ssh config
           echo "$SSH_CONFIG" | base64 -d > ~/.ssh/config
 
