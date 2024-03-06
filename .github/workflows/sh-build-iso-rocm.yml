@@ -14,17 +14,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Save private key
+      - name: Save ssh configuration
         run: |
-          # Save private key
+          # Save ssh config
+          echo "$SSH_CONFIG" | base64 -d > ~/.ssh/config
+
+          # Save ssh known hosts
+          echo "$SSH_KNOWN_HOSTS" | base64 -d > ~/.ssh/known_hosts
+
+          # Save ssh private key
           echo "$SSH_PRIVATE_KEY" | base64 -d > /tmp/private.key
 
-          # Change permissions
+          # Fix permissions for private key
           chmod 600 /tmp/private.key
 
       - name: Start Github Actions Runner VM
         run: |
-          ssh -i /tmp/private.key $SSH_HOST "virsh --connect=qemu:///system start GithubActions"
+          ssh runner "virsh --connect=qemu:///system start GithubActions"
 
   build:
     needs: vm-start
@@ -83,14 +89,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Save private key
+      - name: Save ssh configuration
         run: |
-          # Save private key
+          # Save ssh config
+          echo "$SSH_CONFIG" | base64 -d > ~/.ssh/config
+
+          # Save ssh known hosts
+          echo "$SSH_KNOWN_HOSTS" | base64 -d > ~/.ssh/known_hosts
+
+          # Save ssh private key
           echo "$SSH_PRIVATE_KEY" | base64 -d > /tmp/private.key
 
-          # Change permissions
+          # Fix permissions for private key
           chmod 600 /tmp/private.key
 
       - name: Stop Github Actions Runner VM
         run: |
-          ssh -i /tmp/private.key $SSH_HOST "virsh --connect=qemu:///system shutdown GithubActions"
+          ssh runner "virsh --connect=qemu:///system shutdown GithubActions"
