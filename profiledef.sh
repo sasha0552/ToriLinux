@@ -18,5 +18,4 @@ airootfs_image_tool_options=("-comp" "lz4" "-Xhc")
 file_permissions=(
   ["/etc/gshadow"]="0:0:400"
   ["/etc/shadow"]="0:0:400"
-  ["/usr/local/bin/nvidia-pstate"]="0:0:755"
 )
