@@ -18,7 +18,7 @@ pushd "text-generation-webui"
 
 {% if ROCm %}
     # extract pytorch version
-    index_url=$(grep -o 'https://download.pytorch.org/whl/rocm[0-9.]*' one_click.py)
+    index_url=$(grep -m1 -o 'https://download.pytorch.org/whl/rocm[0-9.]*' one_click.py)
 
     # install pytorch
     pip3 install torch torchvision torchaudio --index-url "$index_url"
@@ -26,8 +26,5 @@ pushd "text-generation-webui"
     # install dependencies (rocm)
     pip3 install -r requirements_amd.txt
 {% endif %}
-
-    # openai extensions dependencies
-    pip3 install -r extensions/openai/requirements.txt
   deactivate
 popd
