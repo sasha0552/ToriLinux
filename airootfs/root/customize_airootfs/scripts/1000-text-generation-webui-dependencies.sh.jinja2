@@ -18,7 +18,7 @@ pushd "text-generation-webui"
 
 {% if ROCm %}
     # extract pytorch version
-    index_url=$(grep -o 'https://download.pytorch.org/whl/rocm[0-9.]*' one_click.py)
+    index_url=$(grep -m1 -o 'https://download.pytorch.org/whl/rocm[0-9.]*' one_click.py)
 
     # install pytorch
     pip3 install torch torchvision torchaudio --index-url "$index_url"

@@ -16,7 +16,15 @@
      global maxctx, args, currentusergenkey, totalgens, pendingabortkey
      inputs = generation_inputs()
      inputs.prompt = prompt.encode("UTF-8")
-@@ -500,6 +502,7 @@ def generate(prompt, memory="", images=[], max_length=32, max_context_length=512
+@@ -489,6 +491,7 @@ def generate(prompt, memory="", images=[], max_length=32, max_context_length=512
+     if pendingabortkey!="" and pendingabortkey==genkey:
+         print(f"\nDeferred Abort for GenKey: {pendingabortkey}")
+         pendingabortkey = ""
++        set_pstate_low()
+         return ""
+     else:
+         ret = handle.generate(inputs)
+@@ -500,6 +503,7 @@ def generate(prompt, memory="", images=[], max_length=32, max_context_length=512
                  sindex = outstr.find(trim_str)
                  if sindex != -1 and trim_str!="":
                      outstr = outstr[:sindex]
@@ -24,7 +32,7 @@
          return outstr
  
  
-@@ -2679,6 +2682,7 @@ def sanitize_string(input_string):
+@@ -2679,6 +2683,7 @@ def sanitize_string(input_string):
      return sanitized_string
  
  def main(launch_args,start_server=True):
