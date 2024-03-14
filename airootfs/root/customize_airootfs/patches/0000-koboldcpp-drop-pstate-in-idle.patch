@@ -8,15 +8,15 @@
  
  sampler_order_max = 7
  stop_token_max = 16
-@@ -380,6 +381,7 @@ def load_model(model_filename):
+@@ -397,6 +398,7 @@ def load_model(model_filename):
      return ret
  
- def generate(prompt, memory="", max_length=32, max_context_length=512, temperature=0.7, top_k=100, top_a=0.0, top_p=0.92, min_p=0.0, typical_p=1.0, tfs=1.0, rep_pen=1.0, rep_pen_range=128, presence_penalty=0.0, mirostat=0, mirostat_tau=5.0, mirostat_eta=0.1, sampler_order=[6,0,1,3,4,2,5], seed=-1, stop_sequence=[], use_default_badwordsids=False, stream_sse=False, grammar='', grammar_retain_state=False, genkey='', trimstop=False, quiet=False, dynatemp_range=0.0, dynatemp_exponent=1.0, smoothing_factor=0.0, logit_biases={}):
+ def generate(prompt, memory="", images=[], max_length=32, max_context_length=512, temperature=0.7, top_k=100, top_a=0.0, top_p=0.92, min_p=0.0, typical_p=1.0, tfs=1.0, rep_pen=1.0, rep_pen_range=128, presence_penalty=0.0, mirostat=0, mirostat_tau=5.0, mirostat_eta=0.1, sampler_order=[6,0,1,3,4,2,5], seed=-1, stop_sequence=[], use_default_badwordsids=False, stream_sse=False, grammar='', grammar_retain_state=False, genkey='', trimstop=False, quiet=False, dynatemp_range=0.0, dynatemp_exponent=1.0, smoothing_factor=0.0, logit_biases={}):
 +    set_pstate_high()
      global maxctx, args, currentusergenkey, totalgens, pendingabortkey
      inputs = generation_inputs()
      inputs.prompt = prompt.encode("UTF-8")
-@@ -478,6 +480,7 @@ def generate(prompt, memory="", max_length=32, max_context_length=512, temperatu
+@@ -500,6 +502,7 @@ def generate(prompt, memory="", images=[], max_length=32, max_context_length=512
                  sindex = outstr.find(trim_str)
                  if sindex != -1 and trim_str!="":
                      outstr = outstr[:sindex]
@@ -24,11 +24,11 @@
          return outstr
  
  
-@@ -2545,6 +2548,7 @@ def sanitize_string(input_string):
+@@ -2679,6 +2682,7 @@ def sanitize_string(input_string):
      return sanitized_string
  
  def main(launch_args,start_server=True):
 +    set_pstate_low()
-     global args, friendlymodelname, friendlysdmodelname, fullsdmodelpath
+     global args, friendlymodelname, friendlysdmodelname, fullsdmodelpath, mmprojpath, password
      args = launch_args
      embedded_kailite = None
