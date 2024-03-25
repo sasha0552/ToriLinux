@@ -1,4 +1,4 @@
-name: Build ISO on hosted runner (CUDA)
+name: Build ISO on hosted runner (CUDA, empty)
 
 on:
   push:

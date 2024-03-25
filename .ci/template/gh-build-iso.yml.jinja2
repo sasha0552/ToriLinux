@@ -1,4 +1,4 @@
-name: Build ISO on hosted runner ({{ "CUDA" if type == "cuda" else "ROCm" }})
+name: Build ISO on hosted runner ({{ "CUDA" if type == "cuda" else "ROCm" }}{{ ", empty" if empty else "" }})
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-{% if not empty %}
+{% if not empty or type == "rocm" %}
       - name: Cleanup
         uses: rokibhasansagar/slimhub_actions@main
         with:

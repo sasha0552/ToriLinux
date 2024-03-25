@@ -1,4 +1,4 @@
-name: Build ISO on selfhosted runner ({{ "CUDA" if type == "cuda" else "ROCm" }})
+name: Build ISO on selfhosted runner ({{ "CUDA" if type == "cuda" else "ROCm" }}{{ ", empty" if empty else "" }})
 
 on:
   push:
