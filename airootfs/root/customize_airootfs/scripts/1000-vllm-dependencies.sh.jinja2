@@ -25,24 +25,8 @@ pushd "vllm"
 
   # activate venv
   source venv/bin/activate
-    # install dependencies
-    pip3 install -r requirements.txt
-    pip3 install -r requirements-build.txt
-
-    # build native extension
-    python3 setup.py build_ext --inplace
-  deactivate
-
-  # remove venv
-  rm -fr venv
-
-  # create venv
-  python3 -m venv venv
-
-  # activate venv
-  source venv/bin/activate
-    # install dependencies
-    pip3 install -r requirements.txt
+    # install vllm
+    pip3 install -e .
   deactivate
 {% endif %}
 popd
