@@ -1,4 +1,4 @@
-name: Build ISO on hosted runner ({{ "CUDA" if type == "cuda" else "ROCm" }})
+name: Build ISO on hosted runner (CUDA)
 
 on:
   push:
@@ -14,27 +14,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-{% if not empty %}
-      - name: Cleanup
-        uses: rokibhasansagar/slimhub_actions@main
-        with:
-          retain: "docker_buildkit,docker_imgcache"
-{% endif %}
 
       - name: Checkout repository
         uses: actions/checkout@v4
-{% if not empty %}
-        with:
-          submodules: recursive
-{% endif %}
 
       - name: Build image
         uses: addnab/docker-run-action@v3
         with:
           image: archlinux:latest
-{% raw %}
+
           options: --privileged --volume ${{ github.workspace }}:/workspace
-{% endraw %}
           run: |
             # Exit on error
             set -eu
@@ -47,13 +36,11 @@ jobs:
               # Patch mkarchiso
               .ci/mkarchiso.sh
 
-              {% if empty %}
               # Remove repositories
               .ci/empty.sh
-              {% endif %}
 
-              # Configure to use {{ "CUDA" if type == "cuda" else "ROCm" }}
-              .ci/configure.py {{ type }}
+              # Configure to use CUDA
+              .ci/configure.py cuda
             popd
 
             # Build image

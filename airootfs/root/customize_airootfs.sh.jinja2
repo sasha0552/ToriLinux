@@ -20,23 +20,29 @@ pip3 install --break-system-packages nvidia-pstate
 rm -f /etc/systemd/system/multi-user.target.wants/nvidia-persistenced.service
 {% endif %}
 
-# enter user directory
-cd "/home/tori"
-
 # customize_airootfs temporary directory
 export CUSTOMIZE_AIROOTFS=/root/customize_airootfs
 
-# execute scripts
-for script in $CUSTOMIZE_AIROOTFS/scripts/*.sh; do
-  # print current script
-  echo "===> Executing script $script"
+# if homedir directory exists
+if [ -d "/home/tori" ]; do
+  # enter home directory
+  cd "/home/tori"
 
-  # add execution permission
-  chmod +x "$script"
+  # if script directory exists
+  if [ -d "$CUSTOMIZE_AIROOTFS/scripts" ]; then
+    # execute scripts
+    for script in $CUSTOMIZE_AIROOTFS/scripts/*.sh; do
+      # print current script
+      echo "===> Executing script $script"
 
-  # launch script as user
-  su tori -c "$script"
-done
+      # add execution permission
+      chmod +x "$script"
+
+      # launch script as user
+      su tori -c "$script"
+    done
+  fi
+fi
 
 # remove customize_airootfs temporary directory
-rm -r "$CUSTOMIZE_AIROOTFS"
+rm -fr "$CUSTOMIZE_AIROOTFS"

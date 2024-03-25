@@ -8,7 +8,7 @@ def render_template(filepath, **options):
   if filepath.endswith(".jinja2"):
     # read input file
     with open(filepath, "r") as file:
-      template = jinja2.Template(file.read())
+      template = jinja2.Template(file.read(), lstrip_blocks=True, trim_blocks=True)
 
     # render template
     rendered = template.render(**options)
@@ -40,7 +40,7 @@ def main():
     render_template(filepath, CUDA=cuda, ROCm=rocm, rendered=rendered)
 
     # add output file to rendered list
-    rendered.append(filepath[:-7])
+    rendered.append(filepath[:-7].replace("\\", "/"))
 
     # print status
     print(f"File '{filepath}' rendered successfully")

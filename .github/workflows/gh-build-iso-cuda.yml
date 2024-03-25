@@ -28,6 +28,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: archlinux:latest
+
           options: --privileged --volume ${{ github.workspace }}:/workspace
           run: |
             # Exit on error
@@ -40,6 +41,7 @@ jobs:
 
               # Patch mkarchiso
               .ci/mkarchiso.sh
+
 
               # Configure to use CUDA
               .ci/configure.py cuda

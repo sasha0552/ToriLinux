@@ -2,27 +2,28 @@
 
 import jinja2
 
+def render_template(input_path, output_path, **options):
+  # read input file
+  with open(input_path, "r") as file:
+    template = jinja2.Template(file.read(), lstrip_blocks=True, trim_blocks=True)
+
+  # render template
+  rendered = template.render(**options)
+
+  # write output file
+  with open(output_path, "w") as file:
+    file.write(rendered)
+
 def main():
-  for filename in [ "gh-build-iso", "sh-build-iso" ]:
-    for type in [ "cuda", "rocm" ]:
-      # read input file
-      with open(f".ci/template/{filename}.yml.jinja2", "r") as file:
-        template = jinja2.Template(file.read())
+  # define directories
+  i = ".ci/template"
+  o = ".github/workflows"
 
-      # render template
-      rendered = template.render(type=type)
-
-      # FIXME: skip if hosted and rocm
-      if filename == "gh-build-iso" and type == "rocm":
-        continue
-
-      # FIXME: skip if selfhosted and cuda
-      if filename == "sh-build-iso" and type == "cuda":
-        continue
-
-      # write output file
-      with open(f".github/workflows/{filename}-{type}.yml", "w") as file:
-        file.write(rendered)
+  # render templates
+  render_template(f"{i}/gh-build-iso.yml.jinja2", f"{o}/gh-build-iso-cuda.yml"      , type="cuda", empty=False)
+  render_template(f"{i}/gh-build-iso.yml.jinja2", f"{o}/gh-build-iso-cuda-empty.yml", type="cuda", empty=True)
+  render_template(f"{i}/sh-build-iso.yml.jinja2", f"{o}/sh-build-iso-rocm.yml"      , type="rocm", empty=False)
+  render_template(f"{i}/gh-build-iso.yml.jinja2", f"{o}/gh-build-iso-rocm-empty.yml", type="rocm", empty=True)
 
 if __name__ == "__main__":
   main()
