@@ -2,11 +2,11 @@
 # shellcheck disable=SC2034
 
 iso_name="torilinux"
-iso_label="TORI_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" "+%Y%m%d_%H%M%S")"
+iso_label="TORI_{{ platform|upper }}_{{ type|upper }}_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" "+%Y%m%d_%H%M%S")"
 iso_publisher="Tori Linux"
-iso_application="Tori Linux"
-iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" "+%Y-%m-%d_%H-%M-%S")"
-install_dir="tori"
+iso_application="Tori Linux ({{ "CUDA" if platform == "cuda" else "ROCm" }}, {{ type }})"
+iso_version="{{ platform }}-{{ type }}-$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" "+%Y-%m-%d_%H-%M-%S")"
+install_dir="tori_{{ platform }}_{{ type }}"
 buildmodes=("iso")
 bootmodes=("bios.syslinux.mbr" "bios.syslinux.eltorito"
            "uefi-ia32.systemd-boot.esp" "uefi-x64.systemd-boot.esp"

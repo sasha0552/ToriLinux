@@ -1,4 +1,4 @@
-name: Build ISO on selfhosted runner ({{ "CUDA" if type == "cuda" else "ROCm" }}{{ ", empty" if empty else "" }})
+name: Build ISO on selfhosted runner ({{ "CUDA" if type == "cuda" else "ROCm" }}, {{ type }})
 
 on:
   push:
@@ -49,7 +49,7 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v4
-{% if not empty %}
+{% if type != "empty" %}
         with:
           submodules: recursive
 {% endif %}
@@ -73,13 +73,13 @@ jobs:
               # Patch mkarchiso
               .ci/mkarchiso.sh
 
-              {% if empty %}
+              {% if type == "empty" %}
               # Remove repositories
               .ci/empty.sh
               {% endif %}
 
-              # Configure to use {{ "CUDA" if type == "cuda" else "ROCm" }}
-              .ci/configure.py {{ type }} {{ empty }}
+              # Configure to use {{ "CUDA" if platform == "cuda" else "ROCm" }}
+              .ci/configure.py {{ platform }} {{ type }}
             popd
 
             # Build image

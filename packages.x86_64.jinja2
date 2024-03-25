@@ -36,14 +36,14 @@ syslinux
 wget
 zsh
 
-{% if CUDA %}
+{% if platform == "cuda" %}
 # CUDA
 cuda
 nvidia
 nvidia-utils
 {% endif %}
 
-{% if ROCm %}
+{% if platform == "rocm" %}
 # ROCm
 rocm-hip-sdk
 

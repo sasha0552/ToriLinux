@@ -1,4 +1,4 @@
-name: Build ISO on selfhosted runner (ROCm)
+name: Build ISO on selfhosted runner (ROCm, normal)
 
 on:
   push:
@@ -71,7 +71,7 @@ jobs:
 
 
               # Configure to use ROCm
-              .ci/configure.py rocm False
+              .ci/configure.py rocm normal
             popd
 
             # Build image

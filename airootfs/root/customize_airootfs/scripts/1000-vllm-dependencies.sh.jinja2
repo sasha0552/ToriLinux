@@ -3,7 +3,7 @@ set -eu
 
 # vllm dependencies
 pushd "vllm"
-{% if CUDA %}
+{% if platform == "cuda" %}
   # disable package caching
   export PIP_NO_CACHE_DIR=0
 

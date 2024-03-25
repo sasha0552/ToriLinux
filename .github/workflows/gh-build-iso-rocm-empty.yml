@@ -44,7 +44,7 @@ jobs:
               .ci/empty.sh
 
               # Configure to use ROCm
-              .ci/configure.py rocm True
+              .ci/configure.py rocm empty
             popd
 
             # Build image

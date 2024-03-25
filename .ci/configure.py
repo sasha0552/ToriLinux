@@ -19,22 +19,18 @@ def render_template(filepath, **options):
 
 def main():
   # by default, use cuda
-  cuda = True
-  rocm = False
+  platform = "cuda"
 
-  # and non-empty iso
-  empty = False
+  # and normal iso
+  type = "normal"
 
-  # enable rocm if specified
+  # set platform
   if len(sys.argv) >= 2:
-    if sys.argv[1] == "rocm":
-      cuda = False
-      rocm = True
+    platform = sys.argv[1]
 
-  # enable empty if specified
+  # set type
   if len(sys.argv) >= 3:
-    if sys.argv[2] == "True":
-      empty = True
+    type = sys.argv[2]
 
   # list of rendered files
   rendered = []
@@ -45,7 +41,7 @@ def main():
     rendered.sort()
 
     # render file
-    render_template(filepath, CUDA=cuda, ROCm=rocm, empty=empty, rendered=rendered)
+    render_template(filepath, platform=platform, type=type, rendered=rendered)
 
     # add output file to rendered list
     rendered.append(filepath[:-7].replace("\\", "/"))

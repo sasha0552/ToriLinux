@@ -11,12 +11,12 @@ pushd "text-generation-webui"
 
   # activate venv
   source venv/bin/activate
-{% if CUDA %}
+{% if platform == "cuda" %}
     # install dependencies (cuda)
     pip3 install -r requirements.txt
 {% endif %}
 
-{% if ROCm %}
+{% if platform == "rocm" %}
     # extract pytorch version
     index_url=$(grep -m1 -o 'https://download.pytorch.org/whl/rocm[0-9.]*' one_click.py)
 

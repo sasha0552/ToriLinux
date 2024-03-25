@@ -1,4 +1,4 @@
-name: Build ISO on hosted runner (CUDA)
+name: Build ISO on hosted runner (CUDA, normal)
 
 on:
   push:
@@ -44,7 +44,7 @@ jobs:
 
 
               # Configure to use CUDA
-              .ci/configure.py cuda False
+              .ci/configure.py cuda normal
             popd
 
             # Build image
