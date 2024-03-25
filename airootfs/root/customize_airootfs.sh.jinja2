@@ -23,23 +23,22 @@ rm -f /etc/systemd/system/multi-user.target.wants/nvidia-persistenced.service
 # customize_airootfs temporary directory
 export CUSTOMIZE_AIROOTFS=/root/customize_airootfs
 
-# if home and scripts directories exists
-if [ -d "/home/tori" && -d "$CUSTOMIZE_AIROOTFS/scripts" ]; then
-  # enter home directory
-  cd "/home/tori"
+{% if not empty %}
+# enter home directory
+cd "/home/tori"
 
-  # execute scripts
-  for script in $CUSTOMIZE_AIROOTFS/scripts/*.sh; do
-    # print current script
-    echo "===> Executing script $script"
+# execute scripts
+for script in $CUSTOMIZE_AIROOTFS/scripts/*.sh; do
+  # print current script
+  echo "===> Executing script $script"
 
-    # add execution permission
-    chmod +x "$script"
+  # add execution permission
+  chmod +x "$script"
 
-    # launch script as user
-    su tori -c "$script"
-  done
-fi
+  # launch script as user
+  su tori -c "$script"
+done
+{% endif %}
 
 # remove customize_airootfs temporary directory
 rm -fr "$CUSTOMIZE_AIROOTFS"

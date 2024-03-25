@@ -40,7 +40,7 @@ jobs:
               .ci/empty.sh
 
               # Configure to use CUDA
-              .ci/configure.py cuda
+              .ci/configure.py cuda True
             popd
 
             # Build image

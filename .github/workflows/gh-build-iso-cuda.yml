@@ -44,7 +44,7 @@ jobs:
 
 
               # Configure to use CUDA
-              .ci/configure.py cuda
+              .ci/configure.py cuda False
             popd
 
             # Build image

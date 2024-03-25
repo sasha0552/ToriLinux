@@ -22,11 +22,19 @@ def main():
   cuda = True
   rocm = False
 
+  # and non-empty iso
+  empty = False
+
   # enable rocm if specified
-  if len(sys.argv) == 2:
+  if len(sys.argv) >= 2:
     if sys.argv[1] == "rocm":
       cuda = False
       rocm = True
+
+  # enable empty if specified
+  if len(sys.argv) >= 3:
+    if sys.argv[2] == "True":
+      empty = True
 
   # list of rendered files
   rendered = []
@@ -37,7 +45,7 @@ def main():
     rendered.sort()
 
     # render file
-    render_template(filepath, CUDA=cuda, ROCm=rocm, rendered=rendered)
+    render_template(filepath, CUDA=cuda, ROCm=rocm, empty=empty, rendered=rendered)
 
     # add output file to rendered list
     rendered.append(filepath[:-7].replace("\\", "/"))

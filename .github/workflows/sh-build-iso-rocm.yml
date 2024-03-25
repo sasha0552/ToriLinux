@@ -71,7 +71,7 @@ jobs:
 
 
               # Configure to use ROCm
-              .ci/configure.py rocm
+              .ci/configure.py rocm False
             popd
 
             # Build image

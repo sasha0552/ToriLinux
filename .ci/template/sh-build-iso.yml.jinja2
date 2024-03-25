@@ -79,7 +79,7 @@ jobs:
               {% endif %}
 
               # Configure to use {{ "CUDA" if type == "cuda" else "ROCm" }}
-              .ci/configure.py {{ type }}
+              .ci/configure.py {{ type }} {{ empty }}
             popd
 
             # Build image
