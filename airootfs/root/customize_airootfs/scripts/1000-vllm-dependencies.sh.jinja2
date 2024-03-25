@@ -9,6 +9,7 @@ pushd "vllm"
 
   # limit the number of parallel jobs to avoid OOM
   export MAX_JOBS=1
+  export NVCC_THREADS=1
 
   # define supported architectures
   export TORCH_CUDA_ARCH_LIST="6.0 6.1 7.0 7.5 8.0 8.6 8.9 9.0+PTX"
@@ -19,6 +20,9 @@ pushd "vllm"
   # use gcc 12
   export CC=gcc-12
   export CXX=g++-12
+
+  # make sure punica kernels are built
+  export VLLM_INSTALL_PUNICA_KERNELS=1
 
   # create venv
   python3 -m venv venv
