@@ -7,8 +7,8 @@ mv /usr/lib/os-release.new /usr/lib/os-release
 # set user password
 echo "tori:tori" | chpasswd
 
-# remove any jinja2 files
-find -type f -name "*.jinja2" -print -delete
+# remove any jinja2 files in root directory
+find /root -type f -name "*.jinja2" -print -delete
 
 {% if CUDA %}
 # install nvidia-pstate if cuda
@@ -23,25 +23,22 @@ rm -f /etc/systemd/system/multi-user.target.wants/nvidia-persistenced.service
 # customize_airootfs temporary directory
 export CUSTOMIZE_AIROOTFS=/root/customize_airootfs
 
-# if homedir directory exists
-if [ -d "/home/tori" ]; do
+# if home and scripts directories exists
+if [ -d "/home/tori" && -d "$CUSTOMIZE_AIROOTFS/scripts" ]; then
   # enter home directory
   cd "/home/tori"
 
-  # if script directory exists
-  if [ -d "$CUSTOMIZE_AIROOTFS/scripts" ]; then
-    # execute scripts
-    for script in $CUSTOMIZE_AIROOTFS/scripts/*.sh; do
-      # print current script
-      echo "===> Executing script $script"
+  # execute scripts
+  for script in $CUSTOMIZE_AIROOTFS/scripts/*.sh; do
+    # print current script
+    echo "===> Executing script $script"
 
-      # add execution permission
-      chmod +x "$script"
+    # add execution permission
+    chmod +x "$script"
 
-      # launch script as user
-      su tori -c "$script"
-    done
-  fi
+    # launch script as user
+    su tori -c "$script"
+  done
 fi
 
 # remove customize_airootfs temporary directory
