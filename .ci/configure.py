@@ -8,7 +8,7 @@ def render_template(filepath, **options):
   if filepath.endswith(".jinja2"):
     # read input file
     with open(filepath, "r") as file:
-      template = jinja2.Template(file.read())
+      template = jinja2.Template(file.read(), lstrip_blocks=True, trim_blocks=True)
 
     # render template
     rendered = template.render(**options)
@@ -19,14 +19,18 @@ def render_template(filepath, **options):
 
 def main():
   # by default, use cuda
-  cuda = True
-  rocm = False
+  platform = "cuda"
 
-  # enable rocm if specified
-  if len(sys.argv) == 2:
-    if sys.argv[1] == "rocm":
-      cuda = False
-      rocm = True
+  # and normal iso
+  type = "normal"
+
+  # set platform
+  if len(sys.argv) >= 2:
+    platform = sys.argv[1]
+
+  # set type
+  if len(sys.argv) >= 3:
+    type = sys.argv[2]
 
   # list of rendered files
   rendered = []
@@ -37,10 +41,10 @@ def main():
     rendered.sort()
 
     # render file
-    render_template(filepath, CUDA=cuda, ROCm=rocm, rendered=rendered)
+    render_template(filepath, platform=platform, type=type, rendered=rendered)
 
     # add output file to rendered list
-    rendered.append(filepath[:-7])
+    rendered.append(filepath[:-7].replace("\\", "/"))
 
     # print status
     print(f"File '{filepath}' rendered successfully")

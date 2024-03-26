@@ -1,4 +1,4 @@
-name: Build ISO on selfhosted runner (ROCm)
+name: Build ISO on selfhosted runner (ROCm, normal)
 
 on:
   push:
@@ -19,6 +19,7 @@ jobs:
         run: |
           # Create ssh directory
           mkdir ~/.ssh
+
 
           # Save ssh config
           echo "${{ secrets.SSH_CONFIG }}" | base64 -d > ~/.ssh/config
@@ -54,6 +55,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: archlinux:latest
+
           options: --privileged --rm --volume ${{ github.workspace }}:/workspace
           run: |
             # Exit on error
@@ -67,8 +69,9 @@ jobs:
               # Patch mkarchiso
               .ci/mkarchiso.sh
 
+
               # Configure to use ROCm
-              .ci/configure.py rocm
+              .ci/configure.py rocm normal
             popd
 
             # Build image
@@ -98,6 +101,7 @@ jobs:
         run: |
           # Create ssh directory
           mkdir ~/.ssh
+
 
           # Save ssh config
           echo "${{ secrets.SSH_CONFIG }}" | base64 -d > ~/.ssh/config

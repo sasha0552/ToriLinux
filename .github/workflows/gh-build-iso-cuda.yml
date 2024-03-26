@@ -1,4 +1,4 @@
-name: Build ISO on hosted runner (CUDA)
+name: Build ISO on hosted runner (CUDA, normal)
 
 on:
   push:
@@ -28,6 +28,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: archlinux:latest
+
           options: --privileged --volume ${{ github.workspace }}:/workspace
           run: |
             # Exit on error
@@ -41,8 +42,9 @@ jobs:
               # Patch mkarchiso
               .ci/mkarchiso.sh
 
+
               # Configure to use CUDA
-              .ci/configure.py cuda
+              .ci/configure.py cuda normal
             popd
 
             # Build image

@@ -1,4 +1,5 @@
 out/
+venv/
 work/
 
 # rendered files
@@ -13,3 +14,4 @@ airootfs/root/customize_airootfs/scripts/1000-text-generation-webui-dependencies
 airootfs/root/customize_airootfs/scripts/1000-vllm-dependencies.sh
 airootfs/root/customize_airootfs/scripts/9999-cleanup.sh
 packages.x86_64
+profiledef.sh

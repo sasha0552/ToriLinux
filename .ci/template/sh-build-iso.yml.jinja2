@@ -1,4 +1,4 @@
-name: Build ISO on selfhosted runner ({{ "CUDA" if type == "cuda" else "ROCm" }})
+name: Build ISO on selfhosted runner ({{ "CUDA" if type == "cuda" else "ROCm" }}, {{ type }})
 
 on:
   push:
@@ -19,6 +19,7 @@ jobs:
         run: |
           # Create ssh directory
           mkdir ~/.ssh
+
 {% raw %}
           # Save ssh config
           echo "${{ secrets.SSH_CONFIG }}" | base64 -d > ~/.ssh/config
@@ -29,6 +30,7 @@ jobs:
           # Save ssh private key
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 -d > /tmp/private.key
 {% endraw %}
+
           # Fix permissions for private key
           chmod 600 /tmp/private.key
 
@@ -47,16 +49,18 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v4
+{% if type != "empty" %}
         with:
           submodules: recursive
+{% endif %}
 
       - name: Build image
         uses: addnab/docker-run-action@v3
         with:
           image: archlinux:latest
-{%- raw %}
+{% raw %}
           options: --privileged --rm --volume ${{ github.workspace }}:/workspace
-{%- endraw %}
+{% endraw %}
           run: |
             # Exit on error
             set -eu
@@ -69,8 +73,13 @@ jobs:
               # Patch mkarchiso
               .ci/mkarchiso.sh
 
-              # Configure to use {{ "CUDA" if type == "cuda" else "ROCm" }}
-              .ci/configure.py {{ type }}
+              {% if type == "empty" %}
+              # Remove repositories
+              .ci/empty.sh
+              {% endif %}
+
+              # Configure to use {{ "CUDA" if platform == "cuda" else "ROCm" }}
+              .ci/configure.py {{ platform }} {{ type }}
             popd
 
             # Build image
@@ -100,6 +109,7 @@ jobs:
         run: |
           # Create ssh directory
           mkdir ~/.ssh
+
 {% raw %}
           # Save ssh config
           echo "${{ secrets.SSH_CONFIG }}" | base64 -d > ~/.ssh/config
@@ -110,6 +120,7 @@ jobs:
           # Save ssh private key
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 -d > /tmp/private.key
 {% endraw %}
+
           # Fix permissions for private key
           chmod 600 /tmp/private.key
 

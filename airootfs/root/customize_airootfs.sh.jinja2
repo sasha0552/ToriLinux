@@ -7,24 +7,25 @@ mv /usr/lib/os-release.new /usr/lib/os-release
 # set user password
 echo "tori:tori" | chpasswd
 
-# remove any jinja2 files
-find -type f -name "*.jinja2" -print -delete
+# remove any jinja2 files in root directory
+find /root -type f -name "*.jinja2" -print -delete
 
-{% if CUDA %}
+{% if platform == "cuda" %}
 # install nvidia-pstate if cuda
 pip3 install --break-system-packages nvidia-pstate
 {% endif %}
 
-{% if ROCm %}
+{% if platform == "rocm" %}
 # remove nvidia-persistenced if rocm
 rm -f /etc/systemd/system/multi-user.target.wants/nvidia-persistenced.service
 {% endif %}
 
-# enter user directory
-cd "/home/tori"
-
 # customize_airootfs temporary directory
 export CUSTOMIZE_AIROOTFS=/root/customize_airootfs
+
+{% if type != "empty" %}
+# enter home directory
+cd "/home/tori"
 
 # execute scripts
 for script in $CUSTOMIZE_AIROOTFS/scripts/*.sh; do
@@ -37,6 +38,7 @@ for script in $CUSTOMIZE_AIROOTFS/scripts/*.sh; do
   # launch script as user
   su tori -c "$script"
 done
+{% endif %}
 
 # remove customize_airootfs temporary directory
-rm -r "$CUSTOMIZE_AIROOTFS"
+rm -fr "$CUSTOMIZE_AIROOTFS"
