@@ -1,9 +1,18 @@
 #!/bin/bash
 set -eu
 
+{% if platform == "cuda" %}
+# clone repository
+git clone "https://github.com/OpenAccess-AI-Collective/axolotl.git"
+
+# axolotl patches
+pushd "axolotl"
+  # use specific revision
+  git checkout 2fa65b95997fa0ae68ae2b66933521ff8dfa3980
+popd
+
 # axolotl dependencies
 pushd "axolotl"
-{% if platform == "cuda" %}
   # disable package caching
   export PIP_NO_CACHE_DIR=0
 
@@ -35,5 +44,5 @@ pushd "axolotl"
     # downgrade flash-attn (https://github.com/OpenAccess-AI-Collective/axolotl/issues/911#issuecomment-1868546443)
     pip3 install flash-attn==2.3.2
   deactivate
-{% endif %}
 popd
+{% endif %}

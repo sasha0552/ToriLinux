@@ -1,6 +1,15 @@
 #!/bin/bash
 set -eu
 
+# clone repository
+git clone "https://github.com/oobabooga/text-generation-webui.git"
+
+# text-generation-webui patches
+pushd "text-generation-webui"
+  # use specific revision
+  git checkout 91a7370a655881c55274284509a546ffd644dc16
+popd
+
 # text-generation-webui dependencies
 pushd "text-generation-webui"
   # disable package caching

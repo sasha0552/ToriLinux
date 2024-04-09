@@ -1,6 +1,15 @@
 #!/bin/bash
 set -eu
 
+# clone repository
+git clone "https://github.com/SillyTavern/SillyTavern-Extras.git"
+
+# SillyTavern-Extras patches
+pushd "SillyTavern-Extras"
+  # use specific revision
+  git checkout 86793c6e104ce7e69da919eecea7f4d87ed61727
+popd
+
 # SillyTavern-Extras dependencies
 pushd "SillyTavern-Extras"
   # disable package caching
