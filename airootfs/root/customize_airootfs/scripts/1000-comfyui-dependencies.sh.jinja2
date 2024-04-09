@@ -1,6 +1,15 @@
 #!/bin/bash
 set -eu
 
+# clone repository
+git clone "https://github.com/comfyanonymous/ComfyUI.git"
+
+# ComfyUI patches
+pushd "ComfyUI"
+  # use specific revision
+  git checkout 30abc324c2f73e6b648093ccd4741dece20be1e5
+popd
+
 # ComfyUI dependencies
 pushd "ComfyUI"
   # disable package caching
