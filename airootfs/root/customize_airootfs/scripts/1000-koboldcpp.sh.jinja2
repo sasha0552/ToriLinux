@@ -2,12 +2,12 @@
 set -eu
 
 # clone repository
-git clone "https://github.com/LostRuins/koboldcpp.git"
+git clone "{{ repositories.koboldcpp }}"
 
 # koboldcpp patches
 pushd "koboldcpp"
   # use specific revision
-  git checkout f3b7651102c3ce3e4f331b93137dc32d752eada0
+  git checkout "{{ revisions.koboldcpp }}"
 
 {% if platform == "cuda" %}
   # drop pstate in idle

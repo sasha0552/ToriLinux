@@ -2,12 +2,12 @@
 set -eu
 
 # clone repository
-git clone "https://github.com/oobabooga/text-generation-webui.git"
+git clone "{{ repositories.text_generation_webui }}"
 
 # text-generation-webui patches
 pushd "text-generation-webui"
   # use specific revision
-  git checkout 91a7370a655881c55274284509a546ffd644dc16
+  git checkout "{{ revisions.text_generation_webui }}"
 popd
 
 # text-generation-webui dependencies

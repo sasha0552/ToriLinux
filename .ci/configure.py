@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import configparser
 import glob
 import jinja2
 import sys
@@ -24,6 +25,9 @@ def main():
   # and normal iso
   type = "normal"
 
+  # and empty options
+  options = {}
+
   # set platform
   if len(sys.argv) >= 2:
     platform = sys.argv[1]
@@ -31,6 +35,16 @@ def main():
   # set type
   if len(sys.argv) >= 3:
     type = sys.argv[2]
+
+  # load options
+  config = configparser.ConfigParser()
+  config.read(".ci/options.ini")
+
+  # repositories
+  options["repositories"] = dict(config.items("repositories"))
+
+  # revisions
+  options["revisions"] = dict(config.items("revisions"))
 
   # list of rendered files
   rendered = []
@@ -41,7 +55,7 @@ def main():
     rendered.sort()
 
     # render file
-    render_template(filepath, platform=platform, type=type, rendered=rendered)
+    render_template(filepath, platform=platform, type=type, rendered=rendered, **options)
 
     # add output file to rendered list
     rendered.append(filepath[:-7].replace("\\", "/"))

@@ -3,12 +3,12 @@ set -eu
 
 {% if platform == "cuda" %}
 # clone repository
-git clone "https://github.com/OpenAccess-AI-Collective/axolotl.git"
+git clone "{{ repositories.axolotl }}"
 
 # axolotl patches
 pushd "axolotl"
   # use specific revision
-  git checkout 2fa65b95997fa0ae68ae2b66933521ff8dfa3980
+  git checkout "{{ revisions.axolotl }}"
 popd
 
 # axolotl dependencies

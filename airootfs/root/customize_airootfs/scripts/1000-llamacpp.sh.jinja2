@@ -2,10 +2,10 @@
 set -eu
 
 # clone repository
-git clone "https://github.com/ggerganov/llama.cpp.git"
+git clone "{{ repositories.llamacpp }}"
 
 # llama.cpp patches
 pushd "llama.cpp"
   # use specific revision
-  git checkout cc4a95426d17417d3c83f12bdb514fbe8abe2a88
+  git checkout "{{ revisions.llamacpp }}"
 popd

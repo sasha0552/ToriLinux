@@ -2,12 +2,12 @@
 set -eu
 
 # clone repository
-git clone "https://github.com/comfyanonymous/ComfyUI.git"
+git clone "{{ repositories.comfyui }}"
 
 # ComfyUI patches
 pushd "ComfyUI"
   # use specific revision
-  git checkout 30abc324c2f73e6b648093ccd4741dece20be1e5
+  git checkout "{{ revisions.comfyui }}"
 popd
 
 # ComfyUI dependencies

@@ -2,12 +2,12 @@
 set -eu
 
 # clone repository
-git clone "https://github.com/vladmandic/automatic.git"
+git clone "{{ repositories.automatic }}"
 
 # automatic patches
 pushd "automatic"
   # use specific revision
-  git checkout e783b098fd0ad28acabb29844ab0af0978684c04
+  git checkout "{{ revisions.automatic }}"
 
   # clone submodules
   git submodule update --init --recursive
