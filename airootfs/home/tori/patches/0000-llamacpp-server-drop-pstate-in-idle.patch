@@ -1,0 +1,26 @@
+--- a/examples/server/server.cpp
++++ b/examples/server/server.cpp
+@@ -1039,6 +1039,7 @@ struct server_context {
+             {"id_task", slot.id_task},
+         });
+ 
++        system("nvidia-pstate -s -ps 16");
+         return true;
+     }
+ 
+@@ -1788,6 +1789,7 @@ struct server_context {
+                     kv_cache_clear();
+                 }
+ 
++                system("nvidia-pstate -s -ps 8");
+                 return;
+             }
+         }
+@@ -2895,6 +2897,7 @@ inline void signal_handler(int signal) {
+ }
+ 
+ int main(int argc, char ** argv) {
++    system("nvidia-pstate -s -ps 8");
+ #if SERVER_VERBOSE != 1
+     log_disable();
+ #endif
