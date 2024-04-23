@@ -22,7 +22,6 @@ pushd "vllm"
   # activate venv
   source venv/bin/activate
     # install dependencies
-    pip3 install -r requirements.txt
     pip3 install -r requirements-build.txt
 
     # build native extension
@@ -43,7 +42,7 @@ pushd "vllm"
     {% endif %}
 
     # install dependencies
-    pip3 install -r requirements.txt
+    pip3 install -r requirements-cuda.txt
   deactivate
 popd
 {% endif %}
