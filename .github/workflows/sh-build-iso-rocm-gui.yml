@@ -147,6 +147,3 @@ jobs:
 
           # Wait 2 minutes
           sleep 120
-
-          # Force terminate if needed
-          ssh runner "virsh destroy GithubActions" || true
