@@ -26,7 +26,7 @@ pushd "automatic"
   # activate venv
   source venv/bin/activate
     {% if platform == "cuda" %}
-    # install nvidia-pstate if cuda
+    # install nvidia-pstate
     pip3 install nvidia-pstate
     {% endif %}
 

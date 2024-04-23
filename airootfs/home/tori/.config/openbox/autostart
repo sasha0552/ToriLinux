@@ -1,0 +1,2 @@
+feh --bg-scale ~/.local/share/tori/wallpapers/tori-aod.jpg &
+tint2 &

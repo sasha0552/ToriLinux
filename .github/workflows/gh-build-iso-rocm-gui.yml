@@ -1,4 +1,4 @@
-name: Build ISO on hosted runner (CUDA, normal)
+name: Build ISO on hosted runner (ROCm, gui)
 
 on:
   push:
@@ -41,8 +41,8 @@ jobs:
               .ci/mkarchiso.sh
 
 
-              # Configure to use CUDA
-              .ci/configure.py cuda normal
+              # Configure to use ROCm
+              .ci/configure.py rocm gui
             popd
 
             # Build image

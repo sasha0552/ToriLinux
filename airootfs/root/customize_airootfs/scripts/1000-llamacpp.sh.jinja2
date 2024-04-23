@@ -11,6 +11,6 @@ pushd "llama.cpp"
 
   {% if platform == "cuda" %}
   # drop pstate in idle
-  patch -p1 < "$TORI_PATCHES/0000-llamacpp-drop-pstate-in-idle.patch"
+  patch -p1 < "$TORI_PATCHES/0000-llamacpp-server-drop-pstate-in-idle.patch"
   {% endif %}
 popd

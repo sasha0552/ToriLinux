@@ -50,3 +50,33 @@ rocm-hip-sdk
 # Required for SillyTavern-Extras
 gtk3
 {% endif %}
+
+{% if type == "gui" %}
+# GUI
+feh
+intel-media-driver
+libva-intel-driver
+libva-mesa-driver
+libva-utils
+libva-vdpau-driver
+lightdm
+menumaker
+mesa
+mesa-vdpau
+obconf
+openbox
+tint2
+ttf-dejavu
+ttf-liberation
+xorg
+xorg-apps
+xorg-drivers
+
+# GUI applications
+firefox
+kmahjongg
+kmines
+konsole
+kpat
+ksudoku
+{% endif %}

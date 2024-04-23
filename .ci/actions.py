@@ -22,8 +22,10 @@ def main():
   # render templates
   render_template(f"{i}/gh-build-iso.yml.jinja2", f"{o}/gh-build-iso-cuda.yml"      , platform="cuda", type="normal")
   render_template(f"{i}/gh-build-iso.yml.jinja2", f"{o}/gh-build-iso-cuda-empty.yml", platform="cuda", type="empty")
+  render_template(f"{i}/gh-build-iso.yml.jinja2", f"{o}/gh-build-iso-cuda-gui.yml"  , platform="cuda", type="gui")
   render_template(f"{i}/sh-build-iso.yml.jinja2", f"{o}/sh-build-iso-rocm.yml"      , platform="rocm", type="normal")
   render_template(f"{i}/gh-build-iso.yml.jinja2", f"{o}/gh-build-iso-rocm-empty.yml", platform="rocm", type="empty")
+  render_template(f"{i}/gh-build-iso.yml.jinja2", f"{o}/gh-build-iso-rocm-gui.yml"  , platform="rocm", type="gui")
 
 if __name__ == "__main__":
   main()

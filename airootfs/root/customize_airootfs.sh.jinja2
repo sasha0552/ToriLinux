@@ -7,9 +7,14 @@ echo "tori:tori" | chpasswd
 # remove any jinja2 files in root directory
 find /root -type f -name "*.jinja2" -print -delete
 
-{% if platform == "rocm" %}
-# remove nvidia-persistenced service if rocm
-rm -f /etc/systemd/system/multi-user.target.wants/nvidia-persistenced.service
+{% if platform == "cuda" %}
+# enable nvidia-persistenced service
+systemctl enable nvidia-persistenced
+{% endif %}
+
+{% if type == "gui" %}
+# enable lightdm
+systemctl enable lightdm
 {% endif %}
 
 ##### ENVIRONMENT VARIABLES #####
