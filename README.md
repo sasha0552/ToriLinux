@@ -8,6 +8,7 @@ LiveCD distribution based on [ArchLinux](https://archlinux.org/) and currently i
 * [llama.cpp](https://github.com/ggerganov/llama.cpp)
 * [SillyTavern-Extras](https://github.com/SillyTavern/SillyTavern-Extras)
 * [text-generation-webui](https://github.com/oobabooga/text-generation-webui)
+* [vllm](https://github.com/vllm-project/vllm)
 
 If you would like to see another AI-related project included in ToriLinux, please open an [issue](https://github.com/sasha0552/ToriLinux/issues/new).
 
@@ -31,5 +32,6 @@ Note that you need pre-downloaded models on a local hard drive or NFS server, or
 
 Note that following projects is not available on ROCm version:
 * [axolotl](https://github.com/OpenAccess-AI-Collective/axolotl)
+* [vllm](https://github.com/vllm-project/vllm)
 
 The server for building the ROCm version is provided by [@Sepera-okeq](https://github.com/Sepera-okeq/).

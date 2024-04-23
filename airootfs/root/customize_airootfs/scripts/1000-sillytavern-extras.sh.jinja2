@@ -12,23 +12,25 @@ popd
 
 # SillyTavern-Extras dependencies
 pushd "SillyTavern-Extras"
-  # disable package caching
-  export PIP_NO_CACHE_DIR=0
-
   # create venv
   python3 -m venv venv
 
   # activate venv
   source venv/bin/activate
-{% if platform == "cuda" %}
+    {% if platform == "cuda" %}
+    # install nvidia-pstate if cuda
+    pip3 install nvidia-pstate
+    {% endif %}
+
+    {% if platform == "cuda" %}
     # install dependencies (cuda)
     pip3 install -r requirements.txt
-{% endif %}
+    {% endif %}
 
-{% if platform == "rocm" %}
+    {% if platform == "rocm" %}
     # install dependencies (rocm)
     pip3 install -r requirements-rocm.txt
-{% endif %}
+    {% endif %}
 
     # install remaining dependencies
     pip3 install -r requirements-coqui.txt

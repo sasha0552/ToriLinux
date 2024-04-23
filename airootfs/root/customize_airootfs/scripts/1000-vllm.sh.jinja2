@@ -1,0 +1,49 @@
+#!/bin/sh
+set -eu
+
+{% if platform == "cuda" %}
+# clone repository
+git clone "{{ repositories.vllm }}"
+
+# vllm patches
+pushd "vllm"
+  # use specific revision
+  git checkout "{{ revisions.vllm }}"
+
+  # enable other archs
+  patch -p1 < "$TORI_PATCHES/0100-vllm-enable-other-archs.patch"
+popd
+
+# vllm dependencies
+pushd "vllm"
+  # create venv
+  python3 -m venv venv
+
+  # activate venv
+  source venv/bin/activate
+    # install dependencies
+    pip3 install -r requirements.txt
+    pip3 install -r requirements-build.txt
+
+    # build native extension
+    python3 setup.py build_ext --inplace
+  deactivate
+
+  # remove venv
+  rm -fr venv
+
+  # create venv
+  python3 -m venv venv
+
+  # activate venv
+  source venv/bin/activate
+    {% if platform == "cuda" %}
+    # install nvidia-pstate if cuda
+    pip3 install nvidia-pstate
+    {% endif %}
+
+    # install dependencies
+    pip3 install -r requirements.txt
+  deactivate
+popd
+{% endif %}

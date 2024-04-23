@@ -8,4 +8,9 @@ git clone "{{ repositories.llamacpp }}"
 pushd "llama.cpp"
   # use specific revision
   git checkout "{{ revisions.llamacpp }}"
+
+  {% if platform == "cuda" %}
+  # drop pstate in idle
+  patch -p1 < "$TORI_PATCHES/0000-llamacpp-drop-pstate-in-idle.patch"
+  {% endif %}
 popd

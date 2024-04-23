@@ -8,4 +8,9 @@ git clone "{{ repositories.koboldcpp }}"
 pushd "koboldcpp"
   # use specific revision
   git checkout "{{ revisions.koboldcpp }}"
+
+  {% if platform == "cuda" %}
+  # drop pstate in idle
+  patch -p1 < "$TORI_PATCHES/0000-koboldcpp-drop-pstate-in-idle.patch"
+  {% endif %}
 popd

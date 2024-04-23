@@ -49,10 +49,6 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v4
-{% if type != "empty" %}
-        with:
-          submodules: recursive
-{% endif %}
 
       - name: Build image
         uses: addnab/docker-run-action@v3
