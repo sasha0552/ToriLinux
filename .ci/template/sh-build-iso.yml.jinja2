@@ -34,6 +34,33 @@ jobs:
           # Fix permissions for private key
           chmod 600 /tmp/private.key
 
+      - name: Wait {{ delay }} seconds
+        run: |
+          sleep {{ delay }}
+
+      - name: Wait until Github Actions Runner VM is stopped
+        run: |
+          ok="0"
+
+          while true; do
+            status=$(ssh runner "virsh domstate GithubActions")
+
+            if [ "$status" = "shutoff" ]; then
+              if [ "$ok" = "1" ]; then
+                echo "VM is shut off. Exiting."
+                break
+              else
+                sleep $((10 + $RANDOM % 10))
+                ok="1"
+              fi
+            else
+              ok="0"
+            fi
+
+            echo "VM is not shut off yet. Waiting for 5 seconds..."
+            sleep 5
+          done
+
       - name: Start Github Actions Runner VM
         run: |
           ssh runner "virsh start GithubActions"
