@@ -32,7 +32,8 @@ export MAX_JOBS=2
 
 # define supported architectures
 export TORCH_CUDA_ARCH_LIST="6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0"
-export CUDA_ARCHITECTURES="6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0"
+export CMAKE_CUDA_ARCHITECTURES=$TORCH_CUDA_ARCH_LIST
+export CUDA_ARCHITECTURES=$TORCH_CUDA_ARCH_LIST
 
 # cuda home directory
 export CUDA_HOME=/opt/cuda
@@ -40,6 +41,7 @@ export CUDA_HOME=/opt/cuda
 # use gcc 12
 export CC=gcc-12
 export CXX=g++-12
+export CUDACXX=$CUDA_HOME/bin/nvcc
 ##### ENVIRONMENT VARIABLES #####
 
 {% if type != "empty" %}
