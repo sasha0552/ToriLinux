@@ -15,4 +15,5 @@ airootfs/root/customize_airootfs/scripts/1000-vllm.sh
 airootfs/root/customize_airootfs/scripts/9000-misc.sh
 airootfs/root/customize_airootfs/scripts/9999-cleanup.sh
 packages.x86_64
+pacman.conf
 profiledef.sh
