@@ -1,14 +1,6 @@
 #!/bin/bash
 set -eu
 
-{% if platform == "cuda" %}
-# install nvidia-pstate
-pip3 install --user nvidia-pstate
-{% endif %}
-
-# install retokenizer
-pip3 install --user git+https://github.com/sasha0552/llamacpp-retokenizer.git
-
 {% if type == "gui" %}
 # regenerate openbox menu
 mmaker -fv OpenBox3

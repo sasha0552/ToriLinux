@@ -1,22 +1,6 @@
 #!/bin/bash
 set -eu
 
-# set user password
-echo "tori:tori" | chpasswd
-
-# remove any jinja2 files in root directory
-find /root -type f -name "*.jinja2" -print -delete
-
-{% if platform == "cuda" %}
-# enable nvidia-persistenced service
-systemctl enable nvidia-persistenced
-{% endif %}
-
-{% if type == "gui" %}
-# enable lightdm
-systemctl enable lightdm
-{% endif %}
-
 ##### ENVIRONMENT VARIABLES #####
 # customize_airootfs temporary directory
 export CUSTOMIZE_AIROOTFS=/root/customize_airootfs
@@ -44,6 +28,25 @@ export CXX=g++-12
 export CUDACXX=$CUDA_HOME/bin/nvcc
 export CUDAHOSTCXX=g++-12
 ##### ENVIRONMENT VARIABLES #####
+
+# set user password
+echo "tori:tori" | chpasswd
+
+# remove any jinja2 files in root directory
+find /root -type f -name "*.jinja2" -print -delete
+
+{% if platform == "cuda" %}
+# install nvidia-pstate
+pip3 install --break-system-packages nvidia-pstate
+
+# enable nvidia-persistenced service
+systemctl enable nvidia-persistenced
+{% endif %}
+
+{% if type == "gui" %}
+# enable lightdm
+systemctl enable lightdm
+{% endif %}
 
 {% if type != "empty" %}
 # enter home directory
