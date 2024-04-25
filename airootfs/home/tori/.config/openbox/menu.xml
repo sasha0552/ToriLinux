@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_menu>
+  <menu id="root-menu" label="OpenBox 3">
+    <menu id="torilinux-menu" label="ToriLinux">
+      <item label="SillyTavern">
+        <action name="Execute">
+          <execute>
+            konsole
+              --workdir ~/SillyTavern
+              --hold
+              -e
+                sh -c "
+                  NODE_ENV=production node server.js
+                "
+          </execute>
+        </action>
+      </item>
+    </menu>
+
+    <separator/>
+
+    <menu id="openbox-menu" label="OpenBox">
+      <menu id="client-list-menu"/>
+
+      <item label="Reconfigure">
+        <action name="Reconfigure"/>
+      </item>
+
+      <separator/>
+
+      <item label="Exit">
+        <action name="Exit"/>
+      </item>
+    </menu>
+  </menu>
+</openbox_menu>

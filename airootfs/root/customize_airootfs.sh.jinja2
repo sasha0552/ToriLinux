@@ -44,8 +44,8 @@ systemctl enable nvidia-persistenced
 {% endif %}
 
 {% if type == "gui" %}
-# enable lightdm
-systemctl enable lightdm
+# enable nodm
+systemctl enable nodm
 {% endif %}
 
 {% if type != "empty" %}
