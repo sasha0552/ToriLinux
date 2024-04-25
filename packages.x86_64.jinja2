@@ -22,6 +22,8 @@ ncdu
 neofetch
 net-tools
 nfs-utils
+nodejs
+npm
 ntfs-3g
 nvtop
 openssh
@@ -49,4 +51,25 @@ rocm-hip-sdk
 
 # Required for SillyTavern-Extras
 gtk3
+{% endif %}
+
+{% if type == "gui" %}
+# GUI
+feh
+nodm
+obconf
+openbox
+tint2
+ttf-dejavu
+ttf-liberation
+xorg
+xorg-xinit
+
+# GUI applications
+firefox
+kmahjongg
+kmines
+konsole
+kpat
+ksudoku
 {% endif %}

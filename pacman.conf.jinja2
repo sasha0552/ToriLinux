@@ -74,13 +74,23 @@ LocalFileSigLevel = Optional
 #Include = /etc/pacman.d/mirrorlist
 
 [core]
+{% if platform == "cuda" %}
+# TODO: https://github.com/pytorch/pytorch/issues/122169
+Server = https://archive.archlinux.org/repos/2024/03/04/$repo/os/$arch
+{% else %}
 Include = /etc/pacman.d/mirrorlist
+{% endif %}
 
 #[extra-testing]
 #Include = /etc/pacman.d/mirrorlist
 
 [extra]
+{% if platform == "cuda" %}
+# TODO: https://github.com/pytorch/pytorch/issues/122169
+Server = https://archive.archlinux.org/repos/2024/03/04/$repo/os/$arch
+{% else %}
 Include = /etc/pacman.d/mirrorlist
+{% endif %}
 
 # If you want to run 32 bit applications on your x86_64 system,
 # enable the multilib repositories as required here.

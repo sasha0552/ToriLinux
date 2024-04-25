@@ -1,4 +1,4 @@
-name: Build ISO on selfhosted runner (ROCm, normal)
+name: Build ISO on selfhosted runner (ROCm, gui)
 
 on:
   push:
@@ -29,9 +29,9 @@ jobs:
           # Fix permissions for private key
           chmod 600 /tmp/private.key
 
-      - name: Wait 0 seconds
+      - name: Wait 30 seconds
         run: |
-          sleep 0
+          sleep 30
 
       - name: Wait until Github Actions Runner VM is stopped
         run: |
@@ -92,7 +92,7 @@ jobs:
 
 
               # Configure to use ROCm
-              .ci/configure.py rocm normal
+              .ci/configure.py rocm gui
             popd
 
             # Build image

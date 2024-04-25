@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openbox_menu>
+  <menu id="root-menu" label="OpenBox 3">
+    <menu id="games-menu" label="Games">
+      <item label="kmahjongg">
+        <action name="Execute">
+          <execute>kmahjongg</execute>
+        </action>
+      </item>
+
+      <item label="kmines">
+        <action name="Execute">
+          <execute>kmines</execute>
+        </action>
+      </item>
+
+      <item label="kpat">
+        <action name="Execute">
+          <execute>kpat</execute>
+        </action>
+      </item>
+
+      <item label="ksudoku">
+        <action name="Execute">
+          <execute>ksudoku</execute>
+        </action>
+      </item>
+    </menu>
+
+    <menu id="network-menu" label="Network">
+      <item label="firefox">
+        <action name="Execute">
+          <execute>firefox</execute>
+        </action>
+      </item>
+    </menu>
+
+    <menu id="shells-menu" label="Shells">
+      <item label="konsole">
+        <action name="Execute">
+          <execute>konsole</execute>
+        </action>
+      </item>
+    </menu>
+
+    <menu id="system-menu" label="System">
+      <item label="btop">
+        <action name="Execute">
+          <execute>konsole -e btop</execute>
+        </action>
+      </item>
+
+      <item label="htop">
+        <action name="Execute">
+          <execute>konsole -e htop</execute>
+        </action>
+      </item>
+
+      <item label="nvtop">
+        <action name="Execute">
+          <execute>konsole -e nvtop</execute>
+        </action>
+      </item>
+    </menu>
+
+    <separator/>
+
+    <menu id="openbox-menu" label="OpenBox">
+      <menu id="client-list-menu"/>
+
+      <item label="Reconfigure">
+        <action name="Reconfigure"/>
+      </item>
+
+      <separator/>
+
+      <item label="Exit">
+        <action name="Exit"/>
+      </item>
+    </menu>
+  </menu>
+</openbox_menu>

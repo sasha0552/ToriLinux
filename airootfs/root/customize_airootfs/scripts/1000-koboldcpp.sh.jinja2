@@ -2,15 +2,15 @@
 set -eu
 
 # clone repository
-git clone "https://github.com/LostRuins/koboldcpp.git"
+git clone "{{ repositories.koboldcpp }}"
 
 # koboldcpp patches
 pushd "koboldcpp"
   # use specific revision
-  git checkout f3b7651102c3ce3e4f331b93137dc32d752eada0
+  git checkout "{{ revisions.koboldcpp }}"
 
-{% if platform == "cuda" %}
+  {% if platform == "cuda" %}
   # drop pstate in idle
-  patch -p1 < "$CUSTOMIZE_AIROOTFS/patches/0000-koboldcpp-drop-pstate-in-idle.patch"
-{% endif %}
+  patch -p1 < "$TORI_PATCHES/0000-koboldcpp-drop-pstate-in-idle.patch"
+  {% endif %}
 popd

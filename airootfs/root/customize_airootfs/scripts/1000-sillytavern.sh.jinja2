@@ -1,0 +1,17 @@
+#!/bin/sh
+set -eu
+
+# clone repository
+git clone "{{ repositories.sillytavern }}"
+
+# SillyTavern patches
+pushd "SillyTavern"
+  # use specific revision
+  git checkout "{{ revisions.sillytavern }}"
+popd
+
+# SillyTavern dependencies
+pushd "SillyTavern"
+  # install dependencies
+  npm install
+popd

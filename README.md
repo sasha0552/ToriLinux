@@ -1,13 +1,17 @@
 # ToriLinux - Linux LiveCD for offline AI training and inference
 
+![vLLM on ToriLinux](docs/media/vllm-on-torilinux.png)
+
 LiveCD distribution based on [ArchLinux](https://archlinux.org/) and currently includes the following projects preinstalled, along with their dependencies:
 * [automatic](https://github.com/vladmandic/automatic)
 * [axolotl](https://github.com/OpenAccess-AI-Collective/axolotl)
 * [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
 * [koboldcpp](https://github.com/LostRuins/koboldcpp)
 * [llama.cpp](https://github.com/ggerganov/llama.cpp)
+* [SillyTavern](https://github.com/SillyTavern/SillyTavern)
 * [SillyTavern-Extras](https://github.com/SillyTavern/SillyTavern-Extras)
 * [text-generation-webui](https://github.com/oobabooga/text-generation-webui)
+* [vllm](https://github.com/vllm-project/vllm)
 
 If you would like to see another AI-related project included in ToriLinux, please open an [issue](https://github.com/sasha0552/ToriLinux/issues/new).
 
@@ -31,5 +35,6 @@ Note that you need pre-downloaded models on a local hard drive or NFS server, or
 
 Note that following projects is not available on ROCm version:
 * [axolotl](https://github.com/OpenAccess-AI-Collective/axolotl)
+* [vllm](https://github.com/vllm-project/vllm)
 
 The server for building the ROCm version is provided by [@Sepera-okeq](https://github.com/Sepera-okeq/).

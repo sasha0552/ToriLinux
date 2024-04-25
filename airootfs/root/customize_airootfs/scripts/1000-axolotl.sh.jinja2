@@ -3,37 +3,26 @@ set -eu
 
 {% if platform == "cuda" %}
 # clone repository
-git clone "https://github.com/OpenAccess-AI-Collective/axolotl.git"
+git clone "{{ repositories.axolotl }}"
 
 # axolotl patches
 pushd "axolotl"
   # use specific revision
-  git checkout 2fa65b95997fa0ae68ae2b66933521ff8dfa3980
+  git checkout "{{ revisions.axolotl }}"
 popd
 
 # axolotl dependencies
 pushd "axolotl"
-  # disable package caching
-  export PIP_NO_CACHE_DIR=0
-
-  # limit the number of parallel jobs to avoid OOM
-  export MAX_JOBS=1
-
-  # define supported architectures
-  export TORCH_CUDA_ARCH_LIST="6.0 6.1 7.0 7.5 8.0 8.6 8.9 9.0"
-
-  # cuda home directory
-  export CUDA_HOME=/opt/cuda
-
-  # use gcc 12
-  export CC=gcc-12
-  export CXX=g++-12
-
   # create venv
   python3 -m venv venv
 
   # activate venv
   source venv/bin/activate
+    {% if platform == "cuda" %}
+    # install nvidia-pstate
+    pip3 install nvidia-pstate
+    {% endif %}
+
     # install dependencies
     # TODO: install specific torch version
     pip3 install packaging torch==2.1.1 wheel

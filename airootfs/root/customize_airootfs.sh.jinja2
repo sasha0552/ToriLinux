@@ -1,8 +1,33 @@
 #!/bin/bash
 set -eu
 
-# move new os-release to its place
-mv /usr/lib/os-release.new /usr/lib/os-release
+##### ENVIRONMENT VARIABLES #####
+# customize_airootfs temporary directory
+export CUSTOMIZE_AIROOTFS=/root/customize_airootfs
+
+# directory with patches
+export TORI_PATCHES=/home/tori/.local/share/tori/patches
+
+# disable package caching
+export PIP_NO_CACHE_DIR=0
+
+# limit the number of parallel jobs to avoid OOM
+export MAX_JOBS=2
+
+# define supported architectures
+export TORCH_CUDA_ARCH_LIST="6.0;6.1;7.0;7.5;8.0;8.6;8.9;9.0"
+export CMAKE_CUDA_ARCHITECTURES=$TORCH_CUDA_ARCH_LIST
+export CUDA_ARCHITECTURES=$TORCH_CUDA_ARCH_LIST
+
+# cuda home directory
+export CUDA_HOME=/opt/cuda
+
+# use gcc 12
+export CC=gcc-12
+export CXX=g++-12
+export CUDACXX=$CUDA_HOME/bin/nvcc
+export CUDAHOSTCXX=g++-12
+##### ENVIRONMENT VARIABLES #####
 
 # set user password
 echo "tori:tori" | chpasswd
@@ -11,17 +36,17 @@ echo "tori:tori" | chpasswd
 find /root -type f -name "*.jinja2" -print -delete
 
 {% if platform == "cuda" %}
-# install nvidia-pstate if cuda
+# install nvidia-pstate
 pip3 install --break-system-packages nvidia-pstate
+
+# enable nvidia-persistenced service
+systemctl enable nvidia-persistenced
 {% endif %}
 
-{% if platform == "rocm" %}
-# remove nvidia-persistenced if rocm
-rm -f /etc/systemd/system/multi-user.target.wants/nvidia-persistenced.service
+{% if type == "gui" %}
+# enable nodm
+systemctl enable nodm
 {% endif %}
-
-# customize_airootfs temporary directory
-export CUSTOMIZE_AIROOTFS=/root/customize_airootfs
 
 {% if type != "empty" %}
 # enter home directory
