@@ -74,8 +74,14 @@ jobs:
           # Exit on error
           set -eu
 
-          # Print checksums to summary
-          sha256sum out/* > "$GITHUB_STEP_SUMMARY"
+          # Start code section
+          echo '`' > "$GITHUB_STEP_SUMMARY"
+
+          # Print checksums
+          sha256sum out/* | sed 's/out\///' >> "$GITHUB_STEP_SUMMARY"
+
+          # End code section
+          echo '`' >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
