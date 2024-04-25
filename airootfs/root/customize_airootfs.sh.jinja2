@@ -62,6 +62,10 @@ for script in $CUSTOMIZE_AIROOTFS/scripts/*.sh; do
 
   # launch script as user
   su tori -c "$script"
+
+  {% if platform == "rocm" %}
+  rdfind -checksum sha256 -makehardlinks true -makeresultsfile false "."
+  {% endif %}
 done
 {% endif %}
 
