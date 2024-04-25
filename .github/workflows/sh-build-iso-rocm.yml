@@ -1,9 +1,7 @@
 name: Build ISO on selfhosted runner (ROCm, normal)
 
 on:
-  push:
-    branches:
-    - main
+  workflow_dispatch:
 
 jobs:
   vm-start:
@@ -28,33 +26,6 @@ jobs:
 
           # Fix permissions for private key
           chmod 600 /tmp/private.key
-
-      - name: Wait 0 seconds
-        run: |
-          sleep 0
-
-      - name: Wait until Github Actions Runner VM is stopped
-        run: |
-          ok="0"
-
-          while true; do
-            status=$(ssh runner "virsh domstate GithubActions")
-
-            if [ "$status" = "shutoff" ]; then
-              if [ "$ok" = "1" ]; then
-                echo "VM is shut off. Exiting."
-                break
-              else
-                sleep $((10 + $RANDOM % 10))
-                ok="1"
-              fi
-            else
-              ok="0"
-            fi
-
-            echo "VM is not shut off yet. Waiting for 5 seconds..."
-            sleep 5
-          done
 
       - name: Start Github Actions Runner VM
         run: |
@@ -103,8 +74,14 @@ jobs:
           # Exit on error
           set -eu
 
-          # Print checksums to summary
-          sha256sum out/* > "$GITHUB_STEP_SUMMARY"
+          # Start code section
+          echo '`' > "$GITHUB_STEP_SUMMARY"
+
+          # Print checksums
+          sha256sum out/* | sed 's/out\///' >> "$GITHUB_STEP_SUMMARY"
+
+          # End code section
+          echo '`' >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
@@ -143,3 +120,6 @@ jobs:
 
           # Wait 2 minutes
           sleep 120
+
+          # Forcefully stop VM if needed
+          ssh runner "virsh destroy GithubActions" || true

@@ -10,9 +10,9 @@ airootfs/root/customize_airootfs/scripts/1000-comfyui.sh
 airootfs/root/customize_airootfs/scripts/1000-koboldcpp.sh
 airootfs/root/customize_airootfs/scripts/1000-llamacpp.sh
 airootfs/root/customize_airootfs/scripts/1000-sillytavern-extras.sh
+airootfs/root/customize_airootfs/scripts/1000-sillytavern.sh
 airootfs/root/customize_airootfs/scripts/1000-text-generation-webui.sh
 airootfs/root/customize_airootfs/scripts/1000-vllm.sh
-airootfs/root/customize_airootfs/scripts/9000-misc.sh
 airootfs/root/customize_airootfs/scripts/9999-cleanup.sh
 packages.x86_64
 pacman.conf
