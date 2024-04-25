@@ -42,7 +42,7 @@ pushd "vllm"
     {% endif %}
 
     # install triton with pascal support
-    pip3 install git+https://github.com/sasha0552/triton.git@2.2.0+pascal
+    pip3 install "git+https://github.com/sasha0552/triton.git@2.2.0+pascal#subdirectory=python"
 
     # install dependencies
     pip3 install -r requirements-cuda.txt
