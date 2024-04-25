@@ -1,5 +1,7 @@
 # ToriLinux - Linux LiveCD for offline AI training and inference
 
+![vLLM on ToriLinux](docs/media/vllm-on-torilinux.png)
+
 LiveCD distribution based on [ArchLinux](https://archlinux.org/) and currently includes the following projects preinstalled, along with their dependencies:
 * [automatic](https://github.com/vladmandic/automatic)
 * [axolotl](https://github.com/OpenAccess-AI-Collective/axolotl)
