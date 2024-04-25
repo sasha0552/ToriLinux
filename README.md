@@ -8,6 +8,7 @@ LiveCD distribution based on [ArchLinux](https://archlinux.org/) and currently i
 * [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
 * [koboldcpp](https://github.com/LostRuins/koboldcpp)
 * [llama.cpp](https://github.com/ggerganov/llama.cpp)
+* [SillyTavern](https://github.com/SillyTavern/SillyTavern)
 * [SillyTavern-Extras](https://github.com/SillyTavern/SillyTavern-Extras)
 * [text-generation-webui](https://github.com/oobabooga/text-generation-webui)
 * [vllm](https://github.com/vllm-project/vllm)
