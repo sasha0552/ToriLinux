@@ -1,4 +1,4 @@
-name: Build ISO on selfhosted runner ({{ "CUDA" if type == "cuda" else "ROCm" }}, {{ type }})
+name: Build ISO on selfhosted runner (ROCm, gui)
 
 on:
   workflow_dispatch:
@@ -14,7 +14,7 @@ jobs:
           # Create ssh directory
           mkdir ~/.ssh
 
-{% raw %}
+
           # Save ssh config
           echo "${{ secrets.SSH_CONFIG }}" | base64 -d > ~/.ssh/config
 
@@ -23,7 +23,6 @@ jobs:
 
           # Save ssh private key
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 -d > /tmp/private.key
-{% endraw %}
 
           # Fix permissions for private key
           chmod 600 /tmp/private.key
@@ -48,9 +47,8 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: archlinux:latest
-{% raw %}
+
           options: --privileged --rm --volume ${{ github.workspace }}:/workspace
-{% endraw %}
           run: |
             # Exit on error
             set -eu
@@ -63,13 +61,9 @@ jobs:
               # Patch mkarchiso
               .ci/mkarchiso.sh
 
-              {% if type == "empty" %}
-              # Remove repositories
-              .ci/empty.sh
-              {% endif %}
 
-              # Configure to use {{ "CUDA" if platform == "cuda" else "ROCm" }}
-              .ci/configure.py {{ platform }} {{ type }}
+              # Configure to use ROCm
+              .ci/configure.py rocm gui
             popd
 
             # Build image
@@ -100,7 +94,7 @@ jobs:
           # Create ssh directory
           mkdir ~/.ssh
 
-{% raw %}
+
           # Save ssh config
           echo "${{ secrets.SSH_CONFIG }}" | base64 -d > ~/.ssh/config
 
@@ -109,7 +103,6 @@ jobs:
 
           # Save ssh private key
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 -d > /tmp/private.key
-{% endraw %}
 
           # Fix permissions for private key
           chmod 600 /tmp/private.key
