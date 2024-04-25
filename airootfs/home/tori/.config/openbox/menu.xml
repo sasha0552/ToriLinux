@@ -61,6 +61,22 @@
           <execute>konsole -e nvtop</execute>
         </action>
       </item>
+
+      <separator/>
+
+      <menu id="system-power-menu" label="Power">
+        <item label="Reboot">
+          <action name="Execute">
+            <execute>systemctl reboot</execute>
+          </action>
+        </item>
+
+        <item label="Shutdown">
+          <action name="Execute">
+            <execute>systemctl poweroff</execute>
+          </action>
+        </item>
+      </menu>
     </menu>
 
     <separator/>
