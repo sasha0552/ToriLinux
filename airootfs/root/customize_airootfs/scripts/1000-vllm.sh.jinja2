@@ -10,6 +10,11 @@ pushd "vllm"
   # use specific revision
   git checkout "{{ revisions.vllm }}"
 
+  {% if platform == "cuda" %}
+  # drop pstate in idle
+  patch -p1 < "$TORI_PATCHES/0000-vllm-drop-pstate-in-idle.patch"
+  {% endif %}
+
   # enable other archs
   patch -p1 < "$TORI_PATCHES/0100-vllm-enable-other-archs.patch"
 popd
