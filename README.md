@@ -20,7 +20,7 @@ If you would like to see another AI-related project included in ToriLinux, pleas
 
 * Easy setup: just boot the ISO, and you will have a working setup for training and/or inferencing Large Language Models/Stable Diffusion/etc.
 * Fully offline training and/or inference.
-* Includes performance state switcher, which reduces GPU temperatures when inference is not running (only NVIDIA, only automatic & koboldcpp for now).
+* Includes performance state switcher, which reduces GPU temperatures when inference is not running (only on NVIDIA, `automatic`, `koboldcpp`, `llama.cpp`, `vllm` supported).
 
 ## Usage
 
@@ -31,8 +31,8 @@ To use ToriLinux:
 4. Log in with the username `tori` and password `tori`. You can also use [SSH](https://en.wikipedia.org/wiki/Secure_Shell).
 
 The following options are currently available:
-1. Headless: Headless variant without GUI, for servers
-2. With GUI: A variant with a GUI, for desktops
+1. Headless: Headless variant without GUI, for servers.
+2. With GUI: A variant with a GUI, for desktops.
 3. Empty: A variant WITHOUT projects, with CUDA/ROCm only.
 
 |        | Headless | With GUI | Empty |
