@@ -26,9 +26,19 @@ If you would like to see another AI-related project included in ToriLinux, pleas
 
 To use ToriLinux:
 1. Install [Ventoy](https://ventoy.net/en/doc_start.html) on a USB drive.
-2. Download the latest ISO from workflows ([NVIDIA](https://github.com/sasha0552/ToriLinux/actions/workflows/gh-build-iso-cuda.yml?query=branch%3Amain) / [AMD](https://github.com/sasha0552/ToriLinux/actions/workflows/sh-build-iso-rocm.yml?query=branch%3Amain)) and copy it to the USB drive.
+2. Download the latest ISO from workflows and copy it to the USB drive.
 3. Boot from the USB drive (select it as the boot device in BIOS/UEFI).
 4. Log in with the username `tori` and password `tori`. You can also use [SSH](https://en.wikipedia.org/wiki/Secure_Shell).
+
+The following options are currently available:
+1. Headless: Headless variant without GUI, for servers
+2. With GUI: A variant with a GUI, for desktops
+3. Empty: A variant WITHOUT projects, with CUDA/ROCm only.
+
+|        | Headless | With GUI | Empty |
+|--------|----------|----------|-------|
+| NVIDIA | [NVIDIA headless](https://github.com/sasha0552/ToriLinux/actions/workflows/gh-build-iso-cuda.yml?query=branch%3Amain) | [NVIDIA with GUI](https://github.com/sasha0552/ToriLinux/actions/workflows/gh-build-iso-cuda-gui.yml?query=branch%3Amain) | [NVIDIA empty](https://github.com/sasha0552/ToriLinux/actions/workflows/gh-build-iso-cuda-empty.yml?query=branch%3Amain) |
+| AMD | [AMD headless](https://github.com/sasha0552/ToriLinux/actions/workflows/sh-build-iso-rocm.yml?query=branch%3Amain) | [AMD with GUI](https://github.com/sasha0552/ToriLinux/actions/workflows/sh-build-iso-rocm-gui.yml?query=branch%3Amain) | [AMD empty](https://github.com/sasha0552/ToriLinux/actions/workflows/sh-build-iso-rocm-empty.yml?query=branch%3Amain) |
 
 ## Misc
 
