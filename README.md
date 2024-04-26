@@ -10,6 +10,7 @@ LiveCD distribution based on [ArchLinux](https://archlinux.org/) and currently i
 * [llama.cpp](https://github.com/ggerganov/llama.cpp)
 * [SillyTavern](https://github.com/SillyTavern/SillyTavern)
 * [SillyTavern-Extras](https://github.com/SillyTavern/SillyTavern-Extras)
+* [text-generation-inference](https://github.com/huggingface/text-generation-inference)
 * [text-generation-webui](https://github.com/oobabooga/text-generation-webui)
 * [vllm](https://github.com/vllm-project/vllm)
 
@@ -35,6 +36,7 @@ Note that you need pre-downloaded models on a local hard drive or NFS server, or
 
 Note that following projects is not available on ROCm version:
 * [axolotl](https://github.com/OpenAccess-AI-Collective/axolotl)
+* [text-generation-inference](https://github.com/huggingface/text-generation-inference)
 * [vllm](https://github.com/vllm-project/vllm)
 
 The server for building the ROCm version is provided by [@Sepera-okeq](https://github.com/Sepera-okeq/).
