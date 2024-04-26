@@ -28,7 +28,23 @@
  
  TIMEOUT_KEEP_ALIVE = 5  # seconds
  
-@@ -115,6 +116,7 @@ async def create_completion(request: CompletionRequest, raw_request: Request):
+@@ -87,6 +88,7 @@ async def show_version():
+ @app.post("/v1/chat/completions")
+ async def create_chat_completion(request: ChatCompletionRequest,
+                                  raw_request: Request):
++    set_pstate_high()
+     generator = await openai_serving_chat.create_chat_completion(
+         request, raw_request)
+     if isinstance(generator, ErrorResponse):
+@@ -102,6 +104,7 @@ async def create_chat_completion(request: ChatCompletionRequest,
+ 
+ @app.post("/v1/completions")
+ async def create_completion(request: CompletionRequest, raw_request: Request):
++    set_pstate_high()
+     generator = await openai_serving_completion.create_completion(
+         request, raw_request)
+     if isinstance(generator, ErrorResponse):
+@@ -115,6 +118,7 @@ async def create_completion(request: CompletionRequest, raw_request: Request):
  
  
  if __name__ == "__main__":
