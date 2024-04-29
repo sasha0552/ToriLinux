@@ -4,7 +4,7 @@
              {"id_task", slot.id_task},
          });
  
-+        system("nvidia-pstate -s -ps 16");
++        system("nvidia-pstate -s -ps 0");
          return true;
      }
  
