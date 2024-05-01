@@ -1,6 +1,6 @@
 --- a/vllm/engine/metrics.py
 +++ b/vllm/engine/metrics.py
-@@ -7,6 +7,7 @@ from prometheus_client import (REGISTRY, Counter, Gauge, Histogram, Info,
+@@ -9,6 +9,7 @@ from prometheus_client import (REGISTRY, Counter, Gauge, Histogram, Info,
                                 disable_created_metrics)
  
  from vllm.logger import init_logger
@@ -8,7 +8,7 @@
  
  if TYPE_CHECKING:
      from vllm.spec_decode.metrics import SpecDecodeWorkerMetrics
-@@ -206,6 +207,9 @@ class StatLogger:
+@@ -311,6 +312,9 @@ class StatLogger:
             Logs to prometheus and tracked stats every iteration.
             Logs to Stdout every self.local_interval seconds."""
  
@@ -20,7 +20,7 @@
  
 --- a/vllm/entrypoints/openai/api_server.py
 +++ b/vllm/entrypoints/openai/api_server.py
-@@ -24,6 +24,7 @@ from vllm.entrypoints.openai.serving_chat import OpenAIServingChat
+@@ -26,6 +26,7 @@ from vllm.entrypoints.openai.serving_chat import OpenAIServingChat
  from vllm.entrypoints.openai.serving_completion import OpenAIServingCompletion
  from vllm.logger import init_logger
  from vllm.usage.usage_lib import UsageContext
@@ -28,7 +28,7 @@
  
  TIMEOUT_KEEP_ALIVE = 5  # seconds
  
-@@ -87,6 +88,7 @@ async def show_version():
+@@ -91,6 +92,7 @@ async def show_version():
  @app.post("/v1/chat/completions")
  async def create_chat_completion(request: ChatCompletionRequest,
                                   raw_request: Request):
@@ -36,7 +36,7 @@
      generator = await openai_serving_chat.create_chat_completion(
          request, raw_request)
      if isinstance(generator, ErrorResponse):
-@@ -102,6 +104,7 @@ async def create_chat_completion(request: ChatCompletionRequest,
+@@ -106,6 +108,7 @@ async def create_chat_completion(request: ChatCompletionRequest,
  
  @app.post("/v1/completions")
  async def create_completion(request: CompletionRequest, raw_request: Request):
@@ -44,7 +44,7 @@
      generator = await openai_serving_completion.create_completion(
          request, raw_request)
      if isinstance(generator, ErrorResponse):
-@@ -115,6 +118,7 @@ async def create_completion(request: CompletionRequest, raw_request: Request):
+@@ -119,6 +122,7 @@ async def create_completion(request: CompletionRequest, raw_request: Request):
  
  
  if __name__ == "__main__":
@@ -54,15 +54,15 @@
      app.add_middleware(
 --- a/vllm/worker/model_runner.py
 +++ b/vllm/worker/model_runner.py
-@@ -26,6 +26,7 @@ from vllm.sequence import (MultiModalData, SamplerOutput, SequenceData,
- from vllm.utils import (CudaMemoryProfiler, async_tensor_h2d, is_hip,
-                         is_pin_memory_available, make_tensor_with_pad,
-                         maybe_expand_dim)
+@@ -25,6 +25,7 @@ from vllm.sequence import (MultiModalData, SamplerOutput, SequenceData,
+                            SequenceGroupMetadata)
+ from vllm.utils import (CudaMemoryProfiler, is_hip, is_pin_memory_available,
+                         make_tensor_with_pad)
 +from nvidia_pstate import set_pstate_high, set_pstate_low
  
  logger = init_logger(__name__)
  
-@@ -968,6 +969,7 @@ class ModelRunner:
+@@ -864,6 +865,7 @@ class ModelRunner:
          Since it is used for decoding-only, it assumes there's only 1 token
          per sequence in the batch.
          """
@@ -70,10 +70,10 @@
          # NOTE(woosuk): This is a hack to ensure that the NCCL backend is never
          # deleted before the CUDA graphs.
          self.pynccl_backend = pynccl_utils.get_nccl_backend()
-@@ -1055,6 +1057,7 @@ class ModelRunner:
+@@ -951,6 +953,7 @@ class ModelRunner:
          elapsed_time = end_time - start_time
          # This usually takes < 10 seconds.
-         logger.info(f"Graph capturing finished in {elapsed_time:.0f} secs.")
+         logger.info("Graph capturing finished in %.0f secs.", elapsed_time)
 +        set_pstate_low()
  
      def __del__(self) -> None:
