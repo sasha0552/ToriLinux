@@ -13,7 +13,7 @@
             Logs to Stdout every self.local_interval seconds."""
  
 +        # Set performance state.
-+        set_pstate_low() if stats.num_running == 0 else set_pstate_high()
++        set_pstate_low() if stats.num_running_sys == 0 else set_pstate_high()
 +
          # Log to prometheus.
          self._log_prometheus(stats)
