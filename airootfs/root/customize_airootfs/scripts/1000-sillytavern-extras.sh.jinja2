@@ -8,6 +8,9 @@ git clone "{{ repositories.sillytavern_extras }}"
 pushd "SillyTavern-Extras"
   # use specific revision
   git checkout "{{ revisions.sillytavern_extras }}"
+
+  # create branch
+  git checkout -b tori
 popd
 
 # SillyTavern-Extras dependencies

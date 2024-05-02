@@ -9,8 +9,17 @@ pushd "llama.cpp"
   # use specific revision
   git checkout "{{ revisions.llamacpp }}"
 
+  # create branch
+  git checkout -b tori
+
   {% if platform == "cuda" %}
   # drop pstate in idle
   patch -p1 < "$TORI_PATCHES/0000-llamacpp-server-drop-pstate-in-idle.patch"
+  {% endif %}
+
+  {% if platform == "cuda" %}
+  # commit changes
+  git add .
+  git commit -m "Apply patches"
   {% endif %}
 popd

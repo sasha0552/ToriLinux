@@ -9,6 +9,9 @@ git clone "{{ repositories.axolotl }}"
 pushd "axolotl"
   # use specific revision
   git checkout "{{ revisions.axolotl }}"
+
+  # create branch
+  git checkout -b tori
 popd
 
 # axolotl dependencies
