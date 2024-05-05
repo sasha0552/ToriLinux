@@ -8,7 +8,7 @@
          return true;
      }
  
-@@ -1808,6 +1809,7 @@ struct server_context {
+@@ -1809,6 +1810,7 @@ struct server_context {
                      kv_cache_clear();
                  }
  
@@ -16,7 +16,7 @@
                  return;
              }
          }
-@@ -2888,6 +2890,7 @@ inline void signal_handler(int signal) {
+@@ -2889,6 +2891,7 @@ inline void signal_handler(int signal) {
  }
  
  int main(int argc, char ** argv) {
