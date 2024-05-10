@@ -63,7 +63,7 @@ def main():
       strategy = config["strategy"][key]
 
     # if not locked, update
-    if strategy != "locked":
+    if strategy != "branch" and strategy != "locked":
       config["revisions"][key] = fetch_latest_revision(value, strategy)
 
   # write config back

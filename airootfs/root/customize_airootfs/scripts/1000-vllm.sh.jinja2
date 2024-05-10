@@ -18,9 +18,6 @@ pushd "vllm"
   patch -p1 < "$TORI_PATCHES/0000-vllm-drop-pstate-in-idle.patch"
   {% endif %}
 
-  # enable other archs
-  patch -p1 < "$TORI_PATCHES/0100-vllm-enable-other-archs.patch"
-
   # commit changes
   git add .
   git commit -m "Apply patches"

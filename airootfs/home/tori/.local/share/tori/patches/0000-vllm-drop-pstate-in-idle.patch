@@ -1,12 +1,12 @@
 --- a/vllm/engine/metrics.py
 +++ b/vllm/engine/metrics.py
-@@ -7,6 +7,7 @@ from typing import Dict, List, Optional, Protocol, Union
+@@ -5,6 +5,7 @@ from typing import Counter as CollectionsCounter
+ from typing import Dict, List, Optional, Protocol, Union
+ 
  import numpy as np
++from nvidia_pstate import set_pstate_high, set_pstate_low
  from prometheus_client import (REGISTRY, Counter, Gauge, Histogram, Info,
                                 disable_created_metrics)
-+from nvidia_pstate import set_pstate_high, set_pstate_low
- 
- from vllm.logger import init_logger
  
 @@ -311,6 +312,9 @@ class StatLogger:
             Logs to prometheus and tracked stats every iteration.
@@ -20,14 +20,14 @@
  
 --- a/vllm/entrypoints/openai/api_server.py
 +++ b/vllm/entrypoints/openai/api_server.py
-@@ -14,6 +14,7 @@ from fastapi.middleware.cors import CORSMiddleware
+@@ -12,6 +12,7 @@ from fastapi import Request
+ from fastapi.exceptions import RequestValidationError
+ from fastapi.middleware.cors import CORSMiddleware
  from fastapi.responses import JSONResponse, Response, StreamingResponse
++from nvidia_pstate import set_pstate_high, set_pstate_low
  from prometheus_client import make_asgi_app
  from starlette.routing import Mount
-+from nvidia_pstate import set_pstate_high, set_pstate_low
  
- import vllm
- import vllm.envs as envs
 @@ -96,6 +97,7 @@ async def show_version():
  @app.post("/v1/chat/completions")
  async def create_chat_completion(request: ChatCompletionRequest,
@@ -54,7 +54,7 @@
      app.add_middleware(
 --- a/vllm/worker/model_runner.py
 +++ b/vllm/worker/model_runner.py
-@@ -6,6 +6,7 @@ from typing import Dict, List, NamedTuple, Optional, Set, Tuple
+@@ -5,6 +5,7 @@ from typing import Dict, List, NamedTuple, Optional, Set, Tuple
  import numpy as np
  import torch
  import torch.nn as nn
@@ -62,15 +62,15 @@
  
  from vllm.attention import (AttentionMetadata, AttentionMetadataPerStage,
                              get_attn_backend)
-@@ -929,6 +930,7 @@ class ModelRunner:
+@@ -916,6 +917,7 @@ class ModelRunner:
          Since it is used for decoding-only, it assumes there's only 1 token
          per sequence in the batch.
          """
 +        set_pstate_high()
-         # NOTE(woosuk): This is a hack to ensure that the NCCL backend is never
-         # deleted before the CUDA graphs.
-         self.pynccl_backend = pynccl_utils.get_nccl_backend()
-@@ -1015,6 +1017,7 @@ class ModelRunner:
+         assert not self.model_config.enforce_eager
+         logger.info("Capturing the model for CUDA graphs. This may lead to "
+                     "unexpected consequences if the model is not static. To "
+@@ -998,6 +1000,7 @@ class ModelRunner:
          elapsed_time = end_time - start_time
          # This usually takes < 10 seconds.
          logger.info("Graph capturing finished in %.0f secs.", elapsed_time)
@@ -88,7 +88,7 @@
  
  from vllm.config import (CacheConfig, DeviceConfig, LoadConfig, LoRAConfig,
                           ModelConfig, ParallelConfig, SchedulerConfig,
-@@ -130,6 +131,7 @@ class Worker(WorkerBase):
+@@ -129,6 +130,7 @@ class Worker(WorkerBase):
              You may limit the usage of GPU memory
              by adjusting the `gpu_memory_utilization` parameter.
          """
@@ -96,7 +96,7 @@
          # Profile the memory usage of the model and get the maximum number of
          # cache blocks that can be allocated with the remaining free memory.
          torch.cuda.empty_cache()
-@@ -145,6 +147,8 @@ class Worker(WorkerBase):
+@@ -144,6 +146,8 @@ class Worker(WorkerBase):
          # NOTE(woosuk): Here we assume that the other processes using the same
          # GPU did not change their memory usage during the profiling.
          peak_memory = self.init_gpu_memory - free_gpu_memory
@@ -105,7 +105,7 @@
          assert peak_memory > 0, (
              "Error in memory profiling. This happens when the GPU memory was "
              "not properly cleaned up before initializing the vLLM instance.")
-@@ -161,6 +165,7 @@ class Worker(WorkerBase):
+@@ -160,6 +164,7 @@ class Worker(WorkerBase):
              self.model_runner.remove_all_loras()
          gc.collect()
          torch.cuda.empty_cache()
