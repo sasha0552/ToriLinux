@@ -50,11 +50,14 @@ pushd "vllm"
     pip3 install nvidia-pstate
     {% endif %}
 
-    # install triton with pascal support
-    pip3 install "git+https://github.com/sasha0552/triton.git@release/2.3.x+pascal#subdirectory=python"
-
     # install dependencies
     pip3 install -r requirements-cuda.txt
+
+    # remove triton
+    pip3 uninstall -y triton
+
+    # install triton nightly
+    pip3 install "https://github.com/sasha0552/triton/releases/download/2024-05-11_06-27-29/triton_nightly-3.0.0.post20240511053339-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
   deactivate
 popd
 {% endif %}
