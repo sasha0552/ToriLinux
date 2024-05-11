@@ -7,7 +7,6 @@ airootfs/root/customize_airootfs.sh
 airootfs/root/customize_airootfs/scripts/1000-automatic.sh
 airootfs/root/customize_airootfs/scripts/1000-axolotl.sh
 airootfs/root/customize_airootfs/scripts/1000-comfyui.sh
-airootfs/root/customize_airootfs/scripts/1000-koboldcpp.sh
 airootfs/root/customize_airootfs/scripts/1000-llamacpp.sh
 airootfs/root/customize_airootfs/scripts/1000-sillytavern-extras.sh
 airootfs/root/customize_airootfs/scripts/1000-sillytavern.sh

@@ -6,7 +6,6 @@ LiveCD distribution based on [ArchLinux](https://archlinux.org/) and currently i
 * [automatic](https://github.com/vladmandic/automatic)
 * [axolotl](https://github.com/OpenAccess-AI-Collective/axolotl)
 * [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
-* [koboldcpp](https://github.com/LostRuins/koboldcpp)
 * [llama.cpp](https://github.com/ggerganov/llama.cpp)
 * [SillyTavern](https://github.com/SillyTavern/SillyTavern)
 * [SillyTavern-Extras](https://github.com/SillyTavern/SillyTavern-Extras)
@@ -19,7 +18,7 @@ If you would like to see another AI-related project included in ToriLinux, pleas
 
 * Easy setup: just boot the ISO, and you will have a working setup for training and/or inferencing Large Language Models/Stable Diffusion/etc.
 * Fully offline training and/or inference.
-* Includes performance state switcher, which reduces GPU temperatures when inference is not running (only on NVIDIA, `automatic`, `koboldcpp`, `llama.cpp`, `vllm` supported).
+* Includes performance state switcher, which reduces GPU temperatures when inference is not running (only on NVIDIA, `automatic`, `llama.cpp`, `vllm` supported).
 
 ## Usage
 
