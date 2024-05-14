@@ -4,7 +4,6 @@
 
 LiveCD distribution based on [ArchLinux](https://archlinux.org/) and currently includes the following projects preinstalled, along with their dependencies:
 * [automatic](https://github.com/vladmandic/automatic)
-* [axolotl](https://github.com/OpenAccess-AI-Collective/axolotl)
 * [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
 * [llama.cpp](https://github.com/ggerganov/llama.cpp)
 * [SillyTavern](https://github.com/SillyTavern/SillyTavern)
@@ -43,7 +42,6 @@ The following options are currently available:
 Note that you need pre-downloaded models on a local hard drive or NFS server, or enough RAM and internet connection to download models directly into RAM.
 
 Note that following projects is not available on ROCm version:
-* [axolotl](https://github.com/OpenAccess-AI-Collective/axolotl)
 * [vllm](https://github.com/vllm-project/vllm)
 
 The server for building the ROCm version is provided by [@Sepera-okeq](https://github.com/Sepera-okeq/).
