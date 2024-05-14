@@ -46,6 +46,12 @@ def main():
   # revisions
   options["revisions"] = dict(config.items("revisions"))
 
+  # files
+  options["files"] = dict(config.items("files"))
+
+  def gh_release(name):
+    return f"{options['repositories'][name]}/releases/download/{options['revisions'][name]}/{options['files'][name]}"
+
   # list of rendered files
   rendered = []
 
@@ -55,7 +61,7 @@ def main():
     rendered.sort()
 
     # render file
-    render_template(filepath, platform=platform, type=type, rendered=rendered, **options)
+    render_template(filepath, platform=platform, type=type, rendered=rendered, gh_release=gh_release, **options)
 
     # add output file to rendered list
     rendered.append(filepath[:-7].replace("\\", "/"))

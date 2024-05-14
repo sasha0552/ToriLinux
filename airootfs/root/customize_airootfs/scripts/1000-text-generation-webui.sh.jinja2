@@ -2,7 +2,7 @@
 set -eu
 
 # clone repository
-git clone "{{ repositories.text_generation_webui }}"
+git clone "{{ repositories.text_generation_webui }}.git"
 
 # text-generation-webui patches
 pushd "text-generation-webui"

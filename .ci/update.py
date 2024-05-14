@@ -4,12 +4,17 @@ import configparser
 import requests
 
 def fetch_latest_revision(url, strategy):
-  # github
-  if url.startswith("https://github.com/") and url.endswith(".git"):
-    # extract repo path
-    path = url[19:-4]
+  # parse strategy
+  strategy = strategy.split("+", 2)
+  release_strategy = strategy[0]
+  file_strategy = strategy[1] if len(strategy) == 2 else None
 
-    match strategy:
+  # github
+  if url.startswith("https://github.com/"):
+    # extract repo path
+    path = url[19:]
+
+    match release_strategy:
       case "commit":
         # get commits from api
         response = requests.get(f"https://api.github.com/repos/{path}/commits")
@@ -20,8 +25,8 @@ def fetch_latest_revision(url, strategy):
         # parse json
         data = response.json()
 
-        # return first commit id
-        return data[0]["sha"]
+        # return first commit id and no file
+        return data[0]["sha"], None
 
       case "release":
         # get releases from api
@@ -33,10 +38,33 @@ def fetch_latest_revision(url, strategy):
         # parse json
         data = response.json()
 
+        # return variables
+        ret_release = None
+        ret_file = None
+
         # find first release
         for release in data:
           if not release["prerelease"]:
-            return release["tag_name"]
+            release_url = release["url"]
+            ret_release = release["tag_name"]
+            break
+
+        match file_strategy:
+          case "first":
+            # get release from api
+            response = requests.get(release_url)
+
+            # throw error if not success
+            response.raise_for_status()
+
+            # parse json
+            data = response.json()
+
+            # return first file
+            ret_file = data["assets"][0]["name"]
+
+        # return release and file
+        return ret_release, ret_file
 
   raise ValueError(f"Unsupported url or strategy ({url}, {strategy})")
 
@@ -62,9 +90,17 @@ def main():
     if key in config["strategy"]:
       strategy = config["strategy"][key]
 
-    # if not locked, update
-    if strategy != "branch" and strategy != "locked":
-      config["revisions"][key] = fetch_latest_revision(value, strategy)
+    # if needed, update version
+    if not strategy.startswith("branch") and not strategy.startswith("locked"):
+      # fetch info
+      revision, file = fetch_latest_revision(value, strategy)
+
+      # update revision
+      config["revisions"][key] = revision
+
+      # if needed, update file
+      if file is not None:
+        config["files"][key] = file
 
   # write config back
   with open(".ci/options.ini", "w") as file:

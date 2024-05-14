@@ -2,7 +2,7 @@
 set -eu
 
 # clone repository
-git clone "{{ repositories.llamacpp }}"
+git clone "{{ repositories.llamacpp }}.git"
 
 # llama.cpp patches
 pushd "llama.cpp"
