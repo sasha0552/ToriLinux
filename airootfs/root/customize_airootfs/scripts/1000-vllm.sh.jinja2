@@ -2,62 +2,21 @@
 set -eu
 
 {% if platform == "cuda" %}
-# clone repository
-git clone "{{ repositories.vllm }}"
+# install vllm
+pipx install "{{ gh_release("vllm") }}"
 
-# vllm patches
-pushd "vllm"
-  # use specific revision
-  git checkout "{{ revisions.vllm }}"
+# remove triton
+pipx runpip vllm uninstall -y triton
 
-  # create branch
-  git checkout -b tori
+# install triton with pascal patches
+pipx inject vllm "{{ gh_release("triton") }}"
 
-  {% if platform == "cuda" %}
+# install nvidia-pstate
+pipx inject vllm nvidia-pstate
+
+# apply patches
+pushd "$HOME/.local/share/pipx/venvs/vllm/lib/python3.11/site-packages"
   # drop pstate in idle
   patch -p1 < "$TORI_PATCHES/0000-vllm-drop-pstate-in-idle.patch"
-  {% endif %}
-
-  # commit changes
-  git add .
-  git commit -m "Apply patches"
-popd
-
-# vllm dependencies
-pushd "vllm"
-  # create venv
-  python3 -m venv venv
-
-  # activate venv
-  source venv/bin/activate
-    # install dependencies
-    pip3 install -r requirements-build.txt
-
-    # build native extension
-    python3 setup.py build_ext --inplace
-  deactivate
-
-  # remove venv
-  rm -fr venv
-
-  # create venv
-  python3 -m venv venv
-
-  # activate venv
-  source venv/bin/activate
-    {% if platform == "cuda" %}
-    # install nvidia-pstate
-    pip3 install nvidia-pstate
-    {% endif %}
-
-    # install dependencies
-    pip3 install -r requirements-cuda.txt
-
-    # remove triton
-    pip3 uninstall -y triton
-
-    # install triton nightly
-    pip3 install "https://github.com/sasha0552/triton/releases/download/2024-05-11_06-27-29/triton_nightly-3.0.0.post20240511053339-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
-  deactivate
 popd
 {% endif %}
