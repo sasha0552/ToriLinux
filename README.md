@@ -34,8 +34,10 @@ The following options are currently available:
 
 |        | Headless | With GUI | Empty |
 |--------|----------|----------|-------|
-| NVIDIA | [NVIDIA headless](https://github.com/sasha0552/ToriLinux/actions/workflows/gh-build-iso-cuda.yml?query=branch%3Amain) | [NVIDIA with GUI](https://github.com/sasha0552/ToriLinux/actions/workflows/gh-build-iso-cuda-gui.yml?query=branch%3Amain) | [NVIDIA empty](https://github.com/sasha0552/ToriLinux/actions/workflows/gh-build-iso-cuda-empty.yml?query=branch%3Amain) |
-| AMD | [AMD headless](https://github.com/sasha0552/ToriLinux/actions/workflows/sh-build-iso-rocm.yml?query=branch%3Amain) | [AMD with GUI](https://github.com/sasha0552/ToriLinux/actions/workflows/sh-build-iso-rocm-gui.yml?query=branch%3Amain) | [AMD empty](https://github.com/sasha0552/ToriLinux/actions/workflows/sh-build-iso-rocm-empty.yml?query=branch%3Amain) |
+| NVIDIA | [NVIDIA headless](https://github.com/sasha0552/ToriLinux/actions/workflows/gh-build-iso-cuda.yml?query=branch%3Amain+is%3Asuccess) | [NVIDIA with GUI](https://github.com/sasha0552/ToriLinux/actions/workflows/gh-build-iso-cuda-gui.yml?query=branch%3Amain+is%3Asuccess) | [NVIDIA empty](https://github.com/sasha0552/ToriLinux/actions/workflows/gh-build-iso-cuda-empty.yml?query=branch%3Amain+is%3Asuccess) |
+| AMD | [AMD headless](https://github.com/sasha0552/ToriLinux/actions/workflows/sh-build-iso-rocm.yml?query=branch%3Amain+is%3Asuccess) | [AMD with GUI](https://github.com/sasha0552/ToriLinux/actions/workflows/sh-build-iso-rocm-gui.yml?query=branch%3Amain+is%3Asuccess) | [AMD empty](https://github.com/sasha0552/ToriLinux/actions/workflows/gis%3Asuccessh-build-iso-rocm-empty.yml?query=branch%3Amain+is%3Asuccess) |
+
+Note: You need to be logged in to GitHub to download artifacts. You can use [nightly.link](https://nightly.link/) to download artifacts without authorization.
 
 ## Misc
 
