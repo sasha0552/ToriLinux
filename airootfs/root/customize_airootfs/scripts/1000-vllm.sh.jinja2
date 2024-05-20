@@ -3,13 +3,10 @@ set -eu
 
 {% if platform == "cuda" %}
 # install vllm
-pipx install "{{ gh_release("vllm") }}"
-
-# remove triton
-pipx runpip vllm uninstall -y triton
+pipx install "{{ gh_release("vllm", 1) }}"
 
 # install triton with pascal patches
-pipx inject vllm "{{ gh_release("triton") }}"
+pipx runpip vllm install --force-reinstall --no-deps --upgrade "{{ gh_release("vllm", 0) }}"
 
 # install nvidia-pstate
 pipx inject vllm nvidia-pstate

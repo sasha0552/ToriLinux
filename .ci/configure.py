@@ -3,6 +3,7 @@
 import configparser
 import glob
 import jinja2
+import json
 import sys
 
 def render_template(filepath, **options):
@@ -49,8 +50,11 @@ def main():
   # files
   options["files"] = dict(config.items("files"))
 
-  def gh_release(name):
-    return f"{options['repositories'][name]}/releases/download/{options['revisions'][name]}/{options['files'][name]}"
+  def gh_release(name, index = None):
+    fn = options["files"][name]
+    if index is not None:
+      fn = json.loads(fn)[index]
+    return f"{options['repositories'][name]}/releases/download/{options['revisions'][name]}/{fn}"
 
   # list of rendered files
   rendered = []

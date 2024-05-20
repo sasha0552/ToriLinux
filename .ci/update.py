@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import configparser
+import json
 import requests
 
 def fetch_latest_revision(url, strategy):
@@ -49,19 +50,23 @@ def fetch_latest_revision(url, strategy):
             ret_release = release["tag_name"]
             break
 
+        # get release from api
+        response = requests.get(release_url)
+
+        # throw error if not success
+        response.raise_for_status()
+
+        # parse json
+        data = response.json()
+
         match file_strategy:
           case "first":
-            # get release from api
-            response = requests.get(release_url)
-
-            # throw error if not success
-            response.raise_for_status()
-
-            # parse json
-            data = response.json()
-
             # return first file
             ret_file = data["assets"][0]["name"]
+
+          case "sorted":
+            # return all files as sorted json
+            ret_file = json.dumps(sorted([asset["name"] for asset in data["assets"]]))
 
         # return release and file
         return ret_release, ret_file
