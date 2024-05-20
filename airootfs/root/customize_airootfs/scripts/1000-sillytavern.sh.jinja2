@@ -1,20 +1,5 @@
 #!/bin/sh
 set -eu
 
-# clone repository
-git clone "{{ repositories.sillytavern }}.git"
-
-# SillyTavern patches
-pushd "SillyTavern"
-  # use specific revision
-  git checkout "{{ revisions.sillytavern }}"
-
-  # create branch
-  git checkout -b tori
-popd
-
-# SillyTavern dependencies
-pushd "SillyTavern"
-  # install dependencies
-  npm install
-popd
+# install sillytavern
+npm install --global sillytavern
