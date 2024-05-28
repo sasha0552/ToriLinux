@@ -27,10 +27,10 @@ popd
 # llama.cpp dependencies
 pushd "llama.cpp"
   # create venv
-  python3 -m venv venv
+  python3 -m venv .venv
 
   # activate venv
-  source venv/bin/activate
+  source .venv/bin/activate
     # use pytorch for cpu
     export PIP_EXTRA_INDEX_URL="https://download.pytorch.org/whl/cpu"
 
