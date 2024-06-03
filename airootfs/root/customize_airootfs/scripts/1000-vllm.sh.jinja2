@@ -2,11 +2,11 @@
 set -eu
 
 {% if platform == "cuda" %}
-# install vllm
-pipx install "{{ gh_release("vllm", 1) }}"
+# use patched vllm
+export PIP_EXTRA_INDEX_URL="https://sasha0552.github.io/vllm-ci/"
 
-# install triton with pascal patches
-pipx runpip vllm install --force-reinstall --no-deps --upgrade "{{ gh_release("vllm", 0) }}"
+# install vllm
+pipx install vllm
 
 # install nvidia-pstate
 pipx inject vllm nvidia-pstate
