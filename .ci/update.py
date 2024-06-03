@@ -39,6 +39,9 @@ def fetch_latest_revision(url, strategy):
         # parse json
         data = response.json()
 
+        # first release
+        _release = None
+
         # return variables
         ret_release = None
         ret_file = None
@@ -46,27 +49,18 @@ def fetch_latest_revision(url, strategy):
         # find first release
         for release in data:
           if not release["prerelease"]:
-            release_url = release["url"]
+            _release = release
             ret_release = release["tag_name"]
             break
-
-        # get release from api
-        response = requests.get(release_url)
-
-        # throw error if not success
-        response.raise_for_status()
-
-        # parse json
-        data = response.json()
 
         match file_strategy:
           case "first":
             # return first file
-            ret_file = data["assets"][0]["name"]
+            ret_file = release["assets"][0]["name"]
 
           case "sorted":
             # return all files as sorted json
-            ret_file = json.dumps(sorted([asset["name"] for asset in data["assets"]]))
+            ret_file = json.dumps(sorted([asset["name"] for asset in release["assets"]]))
 
         # return release and file
         return ret_release, ret_file
