@@ -17,7 +17,7 @@ pushd "automatic"
 
   {% if platform == "cuda" %}
   # drop pstate in idle
-  patch -p1 < "$TORI_PATCHES/0000-automatic-drop-pstate-in-idle.patch"
+  patch --no-backup-if-mismatch --strip 1 < "$TORI_PATCHES/0000-automatic-drop-pstate-in-idle.patch"
   {% endif %}
 
   {% if platform == "cuda" %}
