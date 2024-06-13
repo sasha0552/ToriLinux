@@ -8,7 +8,7 @@
  from prometheus_client import (REGISTRY, Counter, Gauge, Histogram, Info,
                                 disable_created_metrics)
  
-@@ -311,6 +312,9 @@ class StatLogger:
+@@ -318,6 +319,9 @@ class StatLogger:
             Logs to prometheus and tracked stats every iteration.
             Logs to Stdout every self.local_interval seconds."""
  
@@ -28,7 +28,7 @@
  from prometheus_client import make_asgi_app
  from starlette.routing import Mount
  
-@@ -96,6 +97,7 @@ async def show_version():
+@@ -100,6 +101,7 @@ async def show_version():
  @app.post("/v1/chat/completions")
  async def create_chat_completion(request: ChatCompletionRequest,
                                   raw_request: Request):
@@ -36,7 +36,7 @@
      generator = await openai_serving_chat.create_chat_completion(
          request, raw_request)
      if isinstance(generator, ErrorResponse):
-@@ -111,6 +113,7 @@ async def create_chat_completion(request: ChatCompletionRequest,
+@@ -115,6 +117,7 @@ async def create_chat_completion(request: ChatCompletionRequest,
  
  @app.post("/v1/completions")
  async def create_completion(request: CompletionRequest, raw_request: Request):
@@ -44,7 +44,7 @@
      generator = await openai_serving_completion.create_completion(
          request, raw_request)
      if isinstance(generator, ErrorResponse):
-@@ -124,6 +127,7 @@ async def create_completion(request: CompletionRequest, raw_request: Request):
+@@ -139,6 +142,7 @@ async def create_embedding(request: EmbeddingRequest, raw_request: Request):
  
  
  if __name__ == "__main__":
@@ -54,15 +54,15 @@
      app.add_middleware(
 --- a/vllm/worker/model_runner.py
 +++ b/vllm/worker/model_runner.py
-@@ -5,6 +5,7 @@ from typing import Dict, List, NamedTuple, Optional, Set, Tuple
+@@ -7,6 +7,7 @@ from typing import Dict, List, NamedTuple, Optional, Set, Tuple, Union
  import numpy as np
  import torch
  import torch.nn as nn
 +from nvidia_pstate import set_pstate_high, set_pstate_low
  
- from vllm.attention import (AttentionMetadata, AttentionMetadataPerStage,
-                             get_attn_backend)
-@@ -916,6 +917,7 @@ class ModelRunner:
+ from vllm.attention import AttentionMetadata, get_attn_backend
+ from vllm.config import (CacheConfig, DeviceConfig, LoadConfig, LoRAConfig,
+@@ -885,6 +886,7 @@ class ModelRunner:
          Since it is used for decoding-only, it assumes there's only 1 token
          per sequence in the batch.
          """
@@ -70,17 +70,17 @@
          assert not self.model_config.enforce_eager
          logger.info("Capturing the model for CUDA graphs. This may lead to "
                      "unexpected consequences if the model is not static. To "
-@@ -998,6 +1000,7 @@ class ModelRunner:
+@@ -963,6 +965,7 @@ class ModelRunner:
          elapsed_time = end_time - start_time
          # This usually takes < 10 seconds.
          logger.info("Graph capturing finished in %.0f secs.", elapsed_time)
 +        set_pstate_low()
  
-     def __del__(self) -> None:
-         # Delete the CUDA graphs before deleting the pynccl communicator.
+     @property
+     def vocab_size(self) -> int:
 --- a/vllm/worker/worker.py
 +++ b/vllm/worker/worker.py
-@@ -5,6 +5,7 @@ from typing import Any, Dict, List, Optional, Set, Tuple
+@@ -5,6 +5,7 @@ from typing import Any, Dict, List, Optional, Set, Tuple, Union
  
  import torch
  import torch.distributed
@@ -88,7 +88,7 @@
  
  from vllm.config import (CacheConfig, DeviceConfig, LoadConfig, LoRAConfig,
                           ModelConfig, ParallelConfig, SchedulerConfig,
-@@ -129,6 +130,7 @@ class Worker(WorkerBase):
+@@ -153,6 +154,7 @@ class Worker(WorkerBase):
              You may limit the usage of GPU memory
              by adjusting the `gpu_memory_utilization` parameter.
          """
@@ -96,7 +96,7 @@
          # Profile the memory usage of the model and get the maximum number of
          # cache blocks that can be allocated with the remaining free memory.
          torch.cuda.empty_cache()
-@@ -144,6 +146,8 @@ class Worker(WorkerBase):
+@@ -168,6 +170,8 @@ class Worker(WorkerBase):
          # NOTE(woosuk): Here we assume that the other processes using the same
          # GPU did not change their memory usage during the profiling.
          peak_memory = self.init_gpu_memory - free_gpu_memory
@@ -105,7 +105,7 @@
          assert peak_memory > 0, (
              "Error in memory profiling. This happens when the GPU memory was "
              "not properly cleaned up before initializing the vLLM instance.")
-@@ -160,6 +164,7 @@ class Worker(WorkerBase):
+@@ -184,6 +188,7 @@ class Worker(WorkerBase):
              self.model_runner.remove_all_loras()
          gc.collect()
          torch.cuda.empty_cache()

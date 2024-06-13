@@ -1,6 +1,6 @@
 --- a/examples/server/server.cpp
 +++ b/examples/server/server.cpp
-@@ -1040,6 +1040,7 @@ struct server_context {
+@@ -1103,6 +1103,7 @@ struct server_context {
              {"id_task", slot.id_task},
          });
  
@@ -8,7 +8,7 @@
          return true;
      }
  
-@@ -1811,6 +1812,7 @@ struct server_context {
+@@ -1910,6 +1911,7 @@ struct server_context {
                      kv_cache_clear();
                  }
  
@@ -16,7 +16,7 @@
                  return;
              }
          }
-@@ -2905,6 +2907,7 @@ inline void signal_handler(int signal) {
+@@ -2455,6 +2457,7 @@ inline void signal_handler(int signal) {
  }
  
  int main(int argc, char ** argv) {
