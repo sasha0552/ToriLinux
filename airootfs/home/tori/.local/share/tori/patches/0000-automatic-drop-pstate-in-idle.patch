@@ -24,7 +24,7 @@
  
  
  class State:
-@@ -79,6 +80,8 @@ class State:
+@@ -81,6 +82,8 @@ class State:
          self.time_start = time.time()
          if self.debug_output:
              log.debug(f'State begin: {self.job}')
@@ -33,7 +33,7 @@
          modules.devices.torch_gc()
  
      def end(self, api=None):
-@@ -88,6 +91,8 @@ class State:
+@@ -90,6 +93,8 @@ class State:
              self.time_start = time.time()
          if self.debug_output:
              log.debug(f'State end: {self.job} time={time.time() - self.time_start:.2f}')
