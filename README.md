@@ -7,8 +7,6 @@ LiveCD distribution based on [ArchLinux](https://archlinux.org/) and currently i
 * [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
 * [llama.cpp](https://github.com/ggerganov/llama.cpp)
 * [SillyTavern](https://github.com/SillyTavern/SillyTavern)
-* [SillyTavern-Extras](https://github.com/SillyTavern/SillyTavern-Extras)
-* [text-generation-webui](https://github.com/oobabooga/text-generation-webui)
 * [vllm](https://github.com/vllm-project/vllm)
 
 If you would like to see another AI-related project included in ToriLinux, please open an [issue](https://github.com/sasha0552/ToriLinux/issues/new).
