@@ -2,7 +2,7 @@
 set -eu
 
 # cache
-find /home/tori/.cache -mindepth 1 -maxdepth 1 -not -name "ccache" -exec rm -r {} +
+rm -fr /home/tori/.cache
 
 # matplotlib
 rm -fr /home/tori/.config/matplotlib

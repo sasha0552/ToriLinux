@@ -37,24 +37,4 @@ pushd "llama.cpp"
     # install dependencies
     pip3 install -r requirements.txt
   deactivate
-
-  {% if platform == "cuda" %}
-  ## populate ccache cache for faster builds
-
-  # configure
-  cmake                               \
-    -Bbuild                           \
-    -DCMAKE_CUDA_HOST_COMPILER=gcc-12 \
-    -DCMAKE_CXX_COMPILER=g++-12       \
-    -DCMAKE_C_COMPILER=gcc-12         \
-    -DGGML_CUDA=ON
-
-  # build
-  cmake                               \
-    --build build                     \
-    --parallel $(nproc)
-
-  # remove build outputs
-  rm -r build/ common/build-info.cpp
-  {% endif %}
 popd
