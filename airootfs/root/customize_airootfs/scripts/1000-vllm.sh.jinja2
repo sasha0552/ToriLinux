@@ -7,13 +7,4 @@ export PIP_EXTRA_INDEX_URL="https://sasha0552.github.io/vllm-ci/"
 
 # install vllm
 pipx install vllm
-
-# install nvidia-pstate
-pipx inject vllm nvidia-pstate
-
-# apply patches
-pushd "$HOME/.local/share/pipx/venvs/vllm/lib/python3.11/site-packages"
-  # drop pstate in idle
-  patch --no-backup-if-mismatch --strip 1 < "$TORI_PATCHES/0000-vllm-drop-pstate-in-idle.patch"
-popd
 {% endif %}

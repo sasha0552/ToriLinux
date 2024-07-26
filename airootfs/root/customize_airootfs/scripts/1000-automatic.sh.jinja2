@@ -14,17 +14,6 @@ pushd "automatic"
 
   # clone submodules
   git submodule update --init --recursive
-
-  {% if platform == "cuda" %}
-  # drop pstate in idle
-  patch --no-backup-if-mismatch --strip 1 < "$TORI_PATCHES/0000-automatic-drop-pstate-in-idle.patch"
-  {% endif %}
-
-  {% if platform == "cuda" %}
-  # commit changes
-  git add .
-  git commit -m "Apply patches"
-  {% endif %}
 popd
 
 # automatic dependencies
@@ -34,11 +23,6 @@ pushd "automatic"
 
   # activate venv
   source venv/bin/activate
-    {% if platform == "cuda" %}
-    # install nvidia-pstate
-    pip3 install nvidia-pstate
-    {% endif %}
-
     # install dependencies
     python3 launch.py --test
   deactivate

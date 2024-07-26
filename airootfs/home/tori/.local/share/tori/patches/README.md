@@ -21,6 +21,9 @@ Don't forget to recompile the project if necessary!
 
 ### Drop PState In Idle (DPSII)
 
+> [!IMPORTANT]
+The DPSII patches have been superseded by the `nvidia-pstated` daemon, which can be found [here](https://github.com/sasha0552/nvidia-pstated). The daemon does not require application patching and switches performance states automatically.
+
 These patches can be used to automatically manage the performance states of NVIDIA GPUs using the [nvidia-pstate](https://github.com/sasha0552/nvidia-pstate).
 
 Remember that you need to install `nvidia-pstate` in the virtual environment (if applicable), and/or add the executable to the system PATH.  

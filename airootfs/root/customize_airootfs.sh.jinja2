@@ -19,11 +19,17 @@ echo "tori:tori" | chpasswd
 find /root -type f -name "*.jinja2" -print -delete
 
 {% if platform == "cuda" %}
-# install nvidia-pstate
-pip3 install --break-system-packages nvidia-pstate
+# download nvidia-pstated
+wget "{{ gh_release("nvidia_pstated") }}" -O "/usr/local/bin/nvidia-pstated"
+
+# mark nvidia-pstated as executable
+chmod +x "/usr/local/bin/nvidia-pstated"
 
 # enable nvidia-persistenced service
 systemctl enable nvidia-persistenced
+
+# enable nvidia-pstated service
+systemctl enable nvidia-pstated
 {% endif %}
 
 {% if type == "gui" %}

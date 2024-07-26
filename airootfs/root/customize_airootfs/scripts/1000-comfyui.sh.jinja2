@@ -20,11 +20,6 @@ pushd "ComfyUI"
 
   # activate venv
   source venv/bin/activate
-    {% if platform == "cuda" %}
-    # install nvidia-pstate
-    pip3 install nvidia-pstate
-    {% endif %}
-
     {% if platform == "rocm" %}
     # extract pytorch version
     index_url=$(grep -o 'https://download.pytorch.org/whl/rocm[0-9.]*' README.md)
