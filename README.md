@@ -5,6 +5,7 @@
 LiveCD distribution based on [ArchLinux](https://archlinux.org/) and currently includes the following projects preinstalled, along with their dependencies:
 * [automatic](https://github.com/vladmandic/automatic)
 * [ComfyUI](https://github.com/comfyanonymous/ComfyUI)
+* [InvokeAI](https://github.com/invoke-ai/InvokeAI)
 * [llama.cpp](https://github.com/ggerganov/llama.cpp)
 * [SillyTavern](https://github.com/SillyTavern/SillyTavern)
 * [vllm](https://github.com/vllm-project/vllm)
