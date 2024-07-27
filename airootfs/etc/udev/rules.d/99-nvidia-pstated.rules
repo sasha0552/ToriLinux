@@ -1,0 +1,11 @@
+# NVIDIA Tesla P100 12 GB
+SUBSYSTEM=="pci", ATTRS{vendor}=="0x10de", ATTRS{device}=="0x15f7", ACTION=="add", RUN+="/usr/bin/systemctl start nvidia-pstated.service"
+
+# NVIDIA Tesla P100 16 GB
+SUBSYSTEM=="pci", ATTRS{vendor}=="0x10de", ATTRS{device}=="0x15f8", ACTION=="add", RUN+="/usr/bin/systemctl start nvidia-pstated.service"
+
+# NVIDIA Tesla P40 24 GB
+SUBSYSTEM=="pci", ATTRS{vendor}=="0x10de", ATTRS{device}=="0x1b38", ACTION=="add", RUN+="/usr/bin/systemctl start nvidia-pstated.service"
+
+# NVIDIA Tesla P4 8 GB
+SUBSYSTEM=="pci", ATTRS{vendor}=="0x10de", ATTRS{device}=="0x1bb3", ACTION=="add", RUN+="/usr/bin/systemctl start nvidia-pstated.service"

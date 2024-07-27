@@ -27,9 +27,6 @@ chmod +x "/usr/local/bin/nvidia-pstated"
 
 # enable nvidia-persistenced service
 systemctl enable nvidia-persistenced
-
-# enable nvidia-pstated service
-systemctl enable nvidia-pstated
 {% endif %}
 
 {% if type == "gui" %}

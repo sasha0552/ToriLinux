@@ -4,6 +4,8 @@ Description=A daemon that automatically manages the performance states of NVIDIA
 [Service]
 DynamicUser=yes
 ExecStart=/usr/local/bin/nvidia-pstated
+Restart=always
+RestartSec=1s
 
 [Install]
 WantedBy=multi-user.target
