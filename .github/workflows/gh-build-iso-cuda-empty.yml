@@ -45,8 +45,41 @@ jobs:
               .ci/configure.py cuda empty
             popd
 
-            # Build image
-            mkarchiso -v -m iso -w /_work -o /workspace/out /workspace
+            # Number of retries
+            MAX_RETRIES=5
+
+            # Try to build image
+            for ((i=1; i<=MAX_RETRIES; i++)); do
+              # Do not exit on error
+              set +e
+
+              # Build image
+              mkarchiso -v -m iso -w /_work -o /workspace/out /workspace
+
+              # Capture exit code
+              STATUS=$?
+
+              # Exit on error
+              set -e
+
+              # Check if build succeeded
+              if [ $STATUS -eq 0 ]; then
+                echo "Build succeeded"
+                break
+              fi
+
+              # Print failure message and retry
+              echo "Build failed. Retry $i/$MAX_RETRIES"
+                
+              # Remove build directory
+              rm -rf /_work
+            done
+
+            # Check if maximum retries were exhausted
+            if [ $STATUS -ne 0 ]; then
+              echo "Build failed after $MAX_RETRIES attempts"
+              exit 1
+            fi
 
       - name: Create summary
         run: |
