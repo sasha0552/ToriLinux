@@ -1,0 +1,16 @@
+#!/bin/sh
+set -eu
+
+{% if platform == "cuda" %}
+# use patched vllm
+export PIP_EXTRA_INDEX_URL="https://sasha0552.github.io/pascal-pkgs-ci/"
+
+# install vllm
+pipx install vllm
+
+# remove triton
+pipx runpip vllm uninstall -y triton
+
+# install patched triton
+pipx runpip vllm install triton-pascal
+{% endif %}
