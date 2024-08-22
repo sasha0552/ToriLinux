@@ -74,10 +74,7 @@ LocalFileSigLevel = Optional
 #Include = /etc/pacman.d/mirrorlist
 
 [core]
-{% if platform == "cuda" %}
-# TODO: https://github.com/pytorch/pytorch/issues/122169
-Server = https://archive.archlinux.org/repos/2024/03/08/$repo/os/$arch
-{% elif platform == "rocm" %}
+{% if platform == "rocm" %}
 # TODO: Until projects are updated to Python 3.12
 Server = https://archive.archlinux.org/repos/2024/04/26/$repo/os/$arch
 {% else %}
