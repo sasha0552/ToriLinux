@@ -11,10 +11,6 @@ pushd "llama.cpp"
 
   # create branch
   git checkout -b tori
-
-  # TODO(remove): merge gemma fattn support
-  git fetch origin pull/8542/head:fattn-logit-softcap
-  git merge --message "Merge branch 'fattn-logit-softcap' into tori" --no-ff fattn-logit-softcap
 popd
 
 # llama.cpp dependencies
