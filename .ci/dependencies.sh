@@ -19,5 +19,8 @@ pacman-key --populate
 # Install required packages
 pacman --sync --noconfirm --needed archiso patch python python-jinja rdfind reflector
 
+# Allow non-zero exit codes
+set +e
+
 # Configure mirrorlist
 reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
