@@ -23,4 +23,4 @@ pacman --sync --noconfirm --needed archiso patch python python-jinja rdfind refl
 set +e
 
 # Configure mirrorlist
-reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
+reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist || true
