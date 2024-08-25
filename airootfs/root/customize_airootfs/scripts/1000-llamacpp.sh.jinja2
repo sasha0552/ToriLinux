@@ -11,10 +11,6 @@ pushd "llama.cpp"
 
   # create branch
   git checkout -b tori
-
-  # TODO(remove): merge gemma fattn support fix
-  git fetch origin pull/9166/head:cuda-gemma2-fattn-prec
-  git merge --message "Merge branch 'cuda-gemma2-fattn-prec' into tori" --no-ff cuda-gemma2-fattn-prec
 popd
 
 # llama.cpp dependencies
