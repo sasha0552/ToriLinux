@@ -1,3 +1,0 @@
-# ToriLinux Documentation
-
-TODO
