@@ -7,10 +7,4 @@ export PIP_EXTRA_INDEX_URL="https://sasha0552.github.io/pascal-pkgs-ci/"
 
 # install patched vllm
 pipx install vllm-pascal
-
-# remove triton
-pipx runpip vllm-pascal uninstall -y triton
-
-# install patched triton
-pipx runpip vllm-pascal install triton-pascal
 {% endif %}

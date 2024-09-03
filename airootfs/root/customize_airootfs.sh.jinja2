@@ -8,6 +8,9 @@ export CUSTOMIZE_AIROOTFS=/root/customize_airootfs
 # home directory
 export HOME=/home/tori
 
+# path
+export PATH=$HOME/.local/bin:$PATH
+
 # directory with patches
 export TORI_PATCHES=$HOME/.local/share/tori/patches
 ##### ENVIRONMENT VARIABLES #####
@@ -33,6 +36,9 @@ systemctl enable nvidia-persistenced
 # enable ly
 systemctl enable ly
 {% endif %}
+
+# install transient-package
+su tori -c "pipx install transient-package"
 
 {% if type != "empty" %}
 # enter home directory
