@@ -1,0 +1,25 @@
+#!/bin/sh
+set -eu
+
+{% if platform == "cuda" %}
+# clone repository
+git clone "{{ repositories.sglang }}.git"
+
+# sglang dependencies
+pushd "sglang"
+  # create venv
+  python3 -m venv venv
+
+  # activate venv
+  source venv/bin/activate
+    # use repo with patched packages
+    export PIP_EXTRA_INDEX_URL="https://sasha0552.github.io/pascal-pkgs-ci/"
+
+    # install dependencies
+    pip3 install -e "python[all]"
+
+    # install flashinfer
+    pip3 install flashinfer-pascal
+  deactivate
+popd
+{% endif %}

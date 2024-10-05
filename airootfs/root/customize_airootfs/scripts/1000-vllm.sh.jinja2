@@ -7,4 +7,7 @@ export PIP_EXTRA_INDEX_URL="https://sasha0552.github.io/pascal-pkgs-ci/"
 
 # install patched vllm
 pipx install vllm-pascal
+
+# install flashinfer
+pipx inject vllm-pascal flashinfer-pascal
 {% endif %}
