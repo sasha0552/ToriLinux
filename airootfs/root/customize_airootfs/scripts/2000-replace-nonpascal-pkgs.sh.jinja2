@@ -11,7 +11,7 @@ replace_package() {
   package=$1
 
   # Iterate over all virtual environments with $package
-  for dir in $(find /home/tori -type d -wholename "*/site-packages/$package"); do
+  for dir in $(find /home/tori -type d -wholename "*/site-packages/$package.dist-info"); do
     # Get path to python interpreter
     interpreter=$(realpath -s "$dir/../../../../bin/python")
 
