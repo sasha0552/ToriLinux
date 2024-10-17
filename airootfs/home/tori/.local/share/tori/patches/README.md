@@ -1,3 +1,7 @@
+> [!IMPORTANT]
+> The DPSII patches have been superseded by the `nvidia-pstated` daemon, which can be found [here](https://github.com/sasha0552/nvidia-pstated). The daemon does not require application patching and switches performance states automatically.  
+> **Patches in this directory will be removed at the end of this year.**
+
 # ToriLinux patches
 
 This directory contains various patches for various projects. They can be applied to a local copy of a project without installing/using ToriLinux.
@@ -20,9 +24,6 @@ Don't forget to recompile the project if necessary!
 ## Patch types
 
 ### Drop PState In Idle (DPSII)
-
-> [!IMPORTANT]
-The DPSII patches have been superseded by the `nvidia-pstated` daemon, which can be found [here](https://github.com/sasha0552/nvidia-pstated). The daemon does not require application patching and switches performance states automatically.
 
 These patches can be used to automatically manage the performance states of NVIDIA GPUs using the [nvidia-pstate](https://github.com/sasha0552/nvidia-pstate).
 
